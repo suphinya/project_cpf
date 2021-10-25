@@ -4,7 +4,10 @@
     <title>Project</title>
     
   </head>
-    <%= link_to 'test login', login_path  %>
+    <% if logged_in? %>    
+      Welcome, <%= current_user.name %>
+      <%= link_to 'logout', logout_path  %>
+    <%end%>
   <body>
       
     <h1>
