@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+all_humen = [
+	{:username => '00001' , :password_digest => '00001' , :name => 'suphinya' , :surname => 'wu' , :position => 'leader' , 
+		:department1 => 'kai tok row' , :department2 => 'ton kon kai' , :department3 => 'kill kai'},
+	{:username => '11111' , :password_digest => '11111' , :name => 'onpinya' , :surname => 'phok' , :position => 'employee' , 
+		:department1 => 'kai tok row' , :department2 => '' , :department3 => ''},
+	{:username => '22222' , :password_digest => '22222' , :name => 'donyapa' , :surname => 'praman' , :position => 'employee' , 
+		:department1 => 'kai tok row' , :department2 => '' , :department3 => ''},
+	{:username => '33333' , :password_digest => '33333' , :name => 'chanda' , :surname => 'soon' , :position => 'employee' , 
+		:department1 => 'kai tok row' , :department2 => '' , :department3 => ''},
+	{:username => '44444' , :password_digest => '44444' , :name => 'thatphoom' , :surname => 'pao' , :position => 'employee' , 
+		:department1 => 'kai tok row' , :department2 => '' , :department3 => ''}
+]
+
+all_humen.each do |humen|
+	User.create(humen)
+end

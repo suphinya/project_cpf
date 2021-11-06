@@ -1,0 +1,7 @@
+</head>
+    <% if logged_in? %>    
+      Welcome, <%= current_user.name %>
+      <%= link_to 'logout', logout_path  %>
+    <%end%>
+  <body>
+<h1> schedule ตารางงาน <%= current_user.name %> </h1>

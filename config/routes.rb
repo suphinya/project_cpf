@@ -9,5 +9,6 @@ Project::Application.routes.draw do
   post '/logout' , to: 'sessions#destroy'
   get '/logout' , to: 'sessions#destroy'
 
+  get '/schedule', :controller => 'employees', :action => 'show'
 
 end

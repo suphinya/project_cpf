@@ -8,9 +8,9 @@ class SessionsController < ApplicationController
 		if @user && @user.authenticate(params[:password])
 	  		session[:user_id] = @user.id
 	  		if @user.position == "leader"
-	  			redirect_to root_path
+	  			redirect_to dashboards_path
 	  		else 
-	  			redirect_to login_path
+	  			redirect_to schedule_path
 	  		end
 		else
 	  		message = "Oop Sorry ! Make sure your username and password are correct !!"
