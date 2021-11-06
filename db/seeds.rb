@@ -19,6 +19,17 @@ all_humen = [
 		:department1 => 'kai tok row' , :department2 => '' , :department3 => ''}
 ]
 
+password = ['00001','11111','22222','33333','44444']
+
 all_humen.each do |humen|
 	User.create(humen)
 end
+
+password.each do |password|
+	a = User.find_by_username(password)
+	a.password = password
+	a.password_confirmation = password
+	a.save
+end
+
+
