@@ -5,9 +5,11 @@ class DashboardsController < ApplicationController
 	end
 
 	def show
+		@pa = params[:id]
 	end
 
 	def edit
+		@pa = params[:id]
 	end
-	
+
 end
