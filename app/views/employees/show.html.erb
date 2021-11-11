@@ -1,7 +1,11 @@
-</head>
-    <% if logged_in? %>    
-      Welcome, <%= current_user.name %>
-      <%= link_to 'logout', logout_path  %>
-    <%end%>
-  <body>
+
+<body>
 <h1> schedule ตารางงาน <%= current_user.name %> </h1>
+
+
+<%= form_tag schedule_path , :method => :get do %>
+  <%= button_tag "Time in", :type => "save_in" , :name => "save_in" %>
+  <%= button_tag "Time out", :type => "save_out" , :name => "save_out" %>
+<% end %>
+
+<%= @c %>

@@ -1,8 +1,56 @@
 <h1 class="headerer">
-  <%= link_to 'Assign shift', root_path %>
+	<%= link_to 'Assign shift', root_path %>
 </h1>
 
-<h1> <%= @pa %> </h1>
+<h1> 
+	<%= @department_name %> 
+</h1>
 
 
-<%= link_to 'Plan', edit_dashboard_path(@pa) %>
+<%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
+
+
+<table>
+	<thead>
+		<tr>
+			<th> ชื่อ-นามสกุล </th>
+			<th> เวลาเข้างาน </th>
+			<th> เวลาออกงาน </th>
+			<th> OT </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @all_workers.each do |worker| %>
+			<tr>
+				<td><%= worker.name + " " + worker.surname %></td>
+				<% worker_all_actuals = worker.actuals.find_by_date('2021-11-12') %>
+
+				<% if worker_all_actuals != nil %>
+
+					<% if worker_all_actuals.time_in != nil %>
+						<td><%= worker_all_actuals.time_in.strftime('%H:%M:%S') %></td>
+					<% else %>
+						<td> - </td>
+					<% end %>
+
+					<% if worker_all_actuals.time_out != nil %>
+						<td><%= worker_all_actuals.time_out.strftime('%H:%M:%S') %></td>
+					<% else %>
+						<td> - </td>
+					<% end %>
+
+					<% if worker_all_actuals.OT != nil %>
+						<td><%= worker_all_actuals.OT %></td>
+					<% else %>
+						<td> - </td>
+					<% end %>
+
+				<% else %>
+					<td> - </td>
+					<td> - </td>
+					<td> - </td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -8,6 +8,10 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+   <% if logged_in? %>    
+      Welcome, <%= current_user.name %>
+      <%= link_to 'logout', logout_path  %>
+    <%end%>
 
   <body>
 
