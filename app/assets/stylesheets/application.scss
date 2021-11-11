@@ -20,17 +20,6 @@
   --primary-color: #007AF3;
 }
 
-html, body {
-  margin: 10px;
-  padding: 5px;
-  background: White;
-  color: DarkSlateGrey;
-  font-family: Tahoma, Verdana, sans-serif;
-  font-size: 10pt;
-}
-
-
-
 body {
     background: #F2F2F2;
     margin: 0;
@@ -84,13 +73,7 @@ table th, table td {
 tr:hover {
   background-color: yellow;
 }
-#notice, #warning {
-  background: rosybrown;
-  margin: 1em 0;
-  padding: 4px;
-  color: red;
-  text-align: center;
-}
+
 form label {
   display: block;
   line-height: 25px;
@@ -147,13 +130,6 @@ img.tmdb-poster {
 }
 p.tmdb-title {
   font-size: 16pt;
-}
-
-.background {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
 }
 
 
