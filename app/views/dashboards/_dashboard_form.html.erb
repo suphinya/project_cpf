@@ -1,13 +1,25 @@
-<h2>
-<%= current_user.department1 %>
-<%= link_to 'actual',  dashboard_path(current_user.department1)  %>
-<%= link_to 'plan',  edit_dashboard_path(current_user.department1)  %>
-</h2>
-<h2>
-<%= current_user.department2 %>
-<%= link_to 'actual',  dashboard_path(current_user.department2)  %>
-<%= link_to 'plan',  edit_dashboard_path(current_user.department2)  %>
-</h2>
-<h2>
-<%= current_user.department3 %>
-</h2>
+<div class="item-container">
+    <div class="title-department">
+    <%= current_user.department1 %>
+    </div>
+    <div class="actual-btn">
+    <%= link_to 'actual',  dashboard_path(current_user.department1)  %>
+    </div>
+    <div class="plan-btn">
+    <%= link_to 'plan',  edit_dashboard_path(current_user.department1)  %>
+    </div>
+</div>
+<div class="item-container">
+    <div class="title-department">
+    <%= current_user.department1 %>
+    </div>
+    <div class="actual-btn">
+    <%= link_to 'actual',  dashboard_path(current_user.department2)  %>
+    </div>
+    <div class="plan-btn">
+    <%= link_to 'plan',  edit_dashboard_path(current_user.department2)  %>
+    </div>
+</div>
+    <h2>
+    <%= current_user.department3 %>
+    </h2>
