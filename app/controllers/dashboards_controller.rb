@@ -22,10 +22,15 @@ class DashboardsController < ApplicationController
 
 		@select = "all" 
 
+		@status = false
+
 		if (params.key?("choose"))
 			@select = params[:time_in]
 			date = Time.current.strftime("%Y-%m-%d")
 			@t_in = (date + ' '+ @select[0..4]).to_time
+
+			@calender = params[:date_work].values[0]
+			@status = true
 		end
 
 	end

@@ -7,18 +7,28 @@
 	<%= @department_name %> 
 </h1>
 
+<%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
+<% day = Time.current.strftime("%Y-%m-%d") %>
+<% date = day.to_time %>
+
 <div id = "pick_time">
 	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
 		กะการทำงาน :    
 		<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
+		<br>
+		วันที่ทำงาน : 
+		<% if @status == true %>
+			<%= date_field("date_work", "date_work" , :value => @calender ) %>
+		<% else %>
+			<%= date_field("date_work", "date_work" , :value => day ) %>
+		<% end %>
 		<%= submit_tag 'choose' , :name => "choose"  %>
 	<% end %>
 </div>
 
+<%= @calender %>
 
-<%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
-<% day = Time.current.strftime("%Y-%m-%d") %>
-<% date = day.to_time %>
+
 
 <% num_now = 0 %>
 
@@ -49,13 +59,21 @@
 		<% @all_workers.each do |worker| %>
 			<tr>
 				<td><%= worker.name + " " + worker.surname %></td>
-				<% worker_all_actuals = worker.actuals.find_by_date(date) %>
+				<% if @status == false %>
+					<% worker_all_actuals = worker.actuals.find_by_date(date) %>
+				<% elsif @status == true %>
+					<% worker_all_actuals = worker.actuals.find_by_date(@calender) %>
+				<% end %>
 
+				<% if @select == "all"  %>
+					<% if @status == false %>
+						<% worker_all_plan = worker.plans.find_by_date(date) %>
+					<% elsif @status == true %>
+						<% worker_all_plan = worker.plans.find_by_date(@calender) %>
+					<% end %>
 
-				<% if @select == "all" %>
-					<% worker_all_plan = worker.plans.find_by_date(date) %>
 				<% else %>
-					<% worker_all_plan = worker.plans.find_by(:date => date , :time_in => @t_in) %>
+					<% worker_all_plan = worker.plans.find_by(:date => @calender , :time_in => @t_in) %>
 				<% end %>
 
 
