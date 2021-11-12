@@ -9,20 +9,34 @@
 
 <div id = "pick_time">
 	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
-		เลือกกะการทำงาน :    
+		กะการทำงาน :    
 		<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
 		<%= submit_tag 'choose' , :name => "choose"  %>
 	<% end %>
 </div>
 
-<%= @select %>
-<%= @t_in %>
 
 <%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
 <% day = Time.current.strftime("%Y-%m-%d") %>
 <% date = day.to_time %>
 
-<table id = "employee_work">
+<% num_now = 0 %>
+
+<% @all_workers.each do |num| %>
+	<% actual = num.actuals.find_by_date(date) %>
+	<% if actual != nil %>
+		<% if actual.time_in != nil && actual.time_out == nil %>
+			<% num_now += 1 %>
+		<% end %>
+	<% end %>
+<% end %>
+
+
+<% num_all_work = @all_workers.length() %>
+<%= "จำนวนคน : "+ num_now.to_s + " / " + num_all_work.to_s %>
+
+
+<table >
 	<thead>
 		<tr>
 			<th> ชื่อ-นามสกุล </th>
@@ -36,11 +50,15 @@
 			<tr>
 				<td><%= worker.name + " " + worker.surname %></td>
 				<% worker_all_actuals = worker.actuals.find_by_date(date) %>
+
+
 				<% if @select == "all" %>
 					<% worker_all_plan = worker.plans.find_by_date(date) %>
 				<% else %>
 					<% worker_all_plan = worker.plans.find_by(:date => date , :time_in => @t_in) %>
 				<% end %>
+
+
 
 				<% if worker_all_actuals != nil && worker_all_plan != nil  %>
 
@@ -64,8 +82,8 @@
 
 				<% else %>
 					<% if worker_all_plan != nil %>
-						<td> <%= '- / ' + worker_all_plan.time_in.strftime('%H:%M:%S') %></td>
-						<td> <%= '- / ' + worker_all_plan.time_out.strftime('%H:%M:%S') %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S') %></td>
 						<td> <%= '- / ' + worker_all_plan.OT.to_s %></td>
 					<% else %>
 						<td> - </td>

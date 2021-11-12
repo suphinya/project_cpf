@@ -20,6 +20,8 @@ class DashboardsController < ApplicationController
 					"18:00 - 03:00","18:30 - 03:30","19:00 - 04:00","19:30 - 04:30","20:00 - 05:00","20:30 - 05:30",
 					"21:00 - 06:00","21:30 - 06:30","22:00 - 07:00","22:30 - 07:30","23:00 - 08:00","23:30 - 08:30"]
 
+		@select = "all" 
+
 		if (params.key?("choose"))
 			@select = params[:time_in]
 			date = Time.current.strftime("%Y-%m-%d")

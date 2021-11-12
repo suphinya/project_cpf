@@ -5,9 +5,9 @@ class EmployeesController < ApplicationController
 		day = Time.current.strftime("%Y-%m-%d")
 		@date = day.to_time 
 
-		name_user = current_user.name
+		#name_user = current_user.name
 		userid = current_user.id
-		user = User.find_by_name(name_user)
+		user = User.find(userid)
 		plan = Plan.find_by(:user_id => userid , :date => @date)
 
 		check_actual = Actual.find_by(:date => @date , :user_id => userid)
