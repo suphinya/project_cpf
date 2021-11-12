@@ -29,7 +29,7 @@ class EmployeesController < ApplicationController
 				check_actual.update(:time_out => @time )
 				act_out = check_actual.time_out
 				plan_out = plan.time_out
-				@ot = (act_out-plan_out)/(60*60)
+				@ot = (act_out-plan_out+(12*3600))/(60*60)
 				check_actual.update(:OT => @ot )
 			else
 				user_actual =  Actual.create(:date => @date , :time_out => @time )
