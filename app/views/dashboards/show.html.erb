@@ -15,9 +15,6 @@
 	<% end %>
 </div>
 
-<%= @select %>
-<%= @t_in %>
-
 <%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
 <% day = Time.current.strftime("%Y-%m-%d") %>
 <% date = day.to_time %>
