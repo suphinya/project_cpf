@@ -9,6 +9,7 @@ class EmployeesController < ApplicationController
 		userid = current_user.id
 		user = User.find(userid)
 		plan = Plan.find_by(:user_id => userid , :date => @date)
+		@all_plans = Plan.where(:user_id => userid).order("date DESC")
 
 		check_actual = Actual.find_by(:date => @date , :user_id => userid)
 
