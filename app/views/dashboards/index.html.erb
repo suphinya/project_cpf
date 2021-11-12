@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project</title>
+    
+  </head>
+    <% if logged_in? %>    
+      Welcome, <%= current_user.name %>
+      <%= link_to 'logout', logout_path  %>
+    <%end%>
+
+  <h1 class="headerer">
+  <%= link_to 'Assign shift', root_path %>
+  </h1>
+
+  <body>
+    <h1>
+      DashBoard
+      จัดการแผนก
+        <%= render :partial=>'dashboard_form' %>
+    </h1>
+  </body>
+</html>

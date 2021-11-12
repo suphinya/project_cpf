@@ -1,0 +1,15 @@
+<h2>
+<%= current_user.department1 %>
+<%= link_to 'actual',  dashboard_path(current_user.department1)  %>
+<%= link_to 'plan',  edit_dashboard_path(current_user.department1)  %>
+</h2>
+<h2>
+<%= current_user.department2 %>
+<%= link_to 'actual',  dashboard_path(current_user.department2)  %>
+<%= link_to 'plan',  edit_dashboard_path(current_user.department2)  %>
+</h2>
+<h2>
+<%= current_user.department3 %>
+<%= link_to 'actual',  dashboard_path(current_user.department3)  %>
+<%= link_to 'plan',  edit_dashboard_path(current_user.department3)  %>
+</h2>

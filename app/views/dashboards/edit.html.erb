@@ -1,0 +1,33 @@
+<h1 class="headerer">
+  <%= link_to 'Assign shift', root_path %>
+</h1>
+<body>
+  <h2>Plan แผนก <%= @dep %></h2>
+  <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
+    Date <%= date_select(:emp, :date) %><br>
+    Time <%= time_select(:emp, :time_in, options={order: [:hour, :minute]}) %> - 
+    <%= time_select(:emp, :time_out, options={order: [:hour, :minute]}) %><br>
+    <%= check_box_tag :check_all %> Select All
+    OT <%= text_field :emp, :OT %>
+    <%= submit_tag("Submit") %>
+
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>ชื่อ-นามสกุล</th>
+        <th>เวลาเข้างาน</th>
+        <th>เวลาออกงาน</th>
+        <th>OT Plane</th>
+      </tr>
+      <% @employee.each do |users| %>
+      <tr>
+        <td><%= check_box_tag "select_user[]", users.id %></td>
+        <td><%= users.name.to_s+" "+users.surname.to_s %></td>
+        <td>time in</td>
+        <td>time out</td>
+        <td>ot</td>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
+</body>
