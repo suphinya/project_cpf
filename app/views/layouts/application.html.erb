@@ -12,14 +12,26 @@
   <img class="background" src="/assets/wave.png" width="500px">
   <div class="navbar">
         <div class="container">
-            <%= link_to 'Assight<span>Shift</span>'.html_safe, root_path, :class => "logo" %>
-  
+            
+            <% if logged_in? && current_user.position == "employee" %>
+              <%= link_to 'Assight<span>Shift</span>'.html_safe, schedule_path, :class => "logo" %>
+            <% else %>
+              <%= link_to 'Assight<span>Shift</span>'.html_safe, root_path, :class => "logo" %>
+            <% end %>
+
             <img id="mobile-cta" class="mobile-menu" src="/assets/menu.svg" alt="Open Navigation">
             <nav>
                 <img id="mobile-exit" class="mobile-menu-exit" src="/assets/exit.svg" alt="Close Navigation">
                 
                 <ul class="primary-nav">
-                    <li class="current"><%= link_to 'Home', root_path %></li>
+                    <li class="current">
+                      <% if logged_in? && current_user.position == "employee" %>
+                        <%= link_to 'Home', schedule_path%>
+                      <% else %>
+                        <%= link_to 'Home', root_path %>
+                      <% end %>
+                        
+                    </li>
                 </ul>
 
                 <ul class="secondary-nav">
