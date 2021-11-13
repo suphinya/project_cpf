@@ -2,13 +2,13 @@
 <body>
 <h1> schedule ตารางงาน <%= current_user.name %> </h1>
 
-
+<div class="table-container">
 <%= form_tag schedule_path , :method => :get do %>
   <%= button_tag "Time in", :type => "save_in" , :name => "save_in" %>
   <%= button_tag "Time out", :type => "save_out" , :name => "save_out" %>
 <% end %>
 
-<table id="employee_schedule">
+<table >
   <thead>
     <th> วันที่ </th>
     <th> เวลาเข้างาน </th>
@@ -51,3 +51,4 @@
     <% end %>
   </tbody>
 </table>
+</div>

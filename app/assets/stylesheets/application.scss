@@ -1,21 +1,22 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
+  /*
+  * This is a manifest file that'll be compiled into application.css, which will include all the files
+  * listed below.
+  *
+  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+  * vendor/assets/stylesheets directory can be referenced here using a relative path.
+  *
+  * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+  * files in this directory. Styles in this file should be added after the last require_* statement.
+  * It is generally better to create a new file per style scope.
+  *
+  *= require_tree .
  *= require_self
  */
 
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;300&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;500&display=swap');
+
 :root {
   --primary-color: #007AF3;
 }
@@ -26,16 +27,43 @@ body {
     font-family: 'IBM Plex Sans Thai', sans-serif;
 }
 
+.plan-btn-show {
+     background-color: #C89863;
+     border-radius: 100px;
+     padding: .5em 2.5em;
+     font-size: 1.3em;
+     color: white;
+     font-weight: bold;
+     text-decoration: none;
+     text-transform: uppercase;
+     font-family: 'IBM Plex Sans Thai', sans-serif;
+
+     &:hover {
+      background-color: #916e48;
+    }
+}
+
+
+h1.title {
+  text-align: center;
+  font-weight: bold;
+
+}
 
 div#main {
   margin: 0;
   padding: 0 20px 20px;
 }
-a {
-  background: transparent;
-  color: maroon;
-  text-decoration: underline;
-  font-weight: bold;
+
+.table-container{
+  background-color: white;
+  margin-top: 25px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 5px 0 5px 0 #bbbbbb;
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1.headerer a {
@@ -57,14 +85,15 @@ table {
 table th {
   border: 2px solid white;
   font-weight: bold;
-  background-color: wheat;
+  background-color: #63C898;
 }
 table th, table td {
   padding: 4px;
   text-align: left;
 }
 tr:hover {
-  background-color: yellow;
+  background-color: #c3ddd0;
+  
 }
 
 form label {
@@ -74,7 +103,7 @@ form label {
   color: maroon;
 }
 br {
-  margin: 10px 10px;
+  margin: auto;
 }
 #login {
   text-align: right;
@@ -180,46 +209,6 @@ section {
   padding: 5em 2em;
 }
 
-.hero {
-  text-align: center;
-}
-
-
-
-.hero-img {
-  width: 70%;
-  margin-top: 3em;
-}
-
-section.features-section {
-  background: #20272E;
-  color: white;
-}
-
-ul.features-list {
-  margin: 0;
-  padding-left: .1em;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-
-  li {
-      font-size: 1.1em;
-      margin-bottom: 1em;
-      margin-left: 2em;
-      position: relative;
-
-      &:before {
-          content: '';
-          left: -2em;
-          position: absolute;
-          width: 20px;
-          height: 20px;
-          background-image: url('../images/bullet.svg');
-          background-size: contain;
-          margin-right: .5em;
-      }
-  }
-}
 
 
 
@@ -245,12 +234,18 @@ input[type="submit"] {
   font-weight: bold;
   font-size: 1.3em;
   border: none;
-  margin-bottom: 5em;
   border-radius: 5em;
   display: inline-block;
-  padding: .8em 2em;
+  padding: .5em 2.5em;
   width: unset;
   cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  margin-top: 25px;
+  &:hover {
+    background: #0d5fb1;
+    color: white;
+  }
 }
 
 
@@ -413,68 +408,6 @@ nav {
       }
   }
 
-  .features-section {
-      position: relative;
-  }
-
-  .features-section img {
-      display: block;
-      position: absolute;
-      right: 0;
-      width: 350px;
-      bottom: -2em;
-  }
-
-  .testimonials-section ul {
-      display: flex;
-      
-      li {
-          margin: 0 1em;
-      }
-  }
-
-  .contact-section {
-      position: relative;
-
-      .container {
-          display: flex;
-      }
-  }
-
-  .contact-right {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 45%;
-      height: 100%;
-
-      iframe {
-          height: 100%;
-      }
-  }
+  
 }
 
-@media only screen and (min-width: 1450px) {
-  .features-section {
-
-      &:before {
-          content: '';
-          position: absolute;
-          width: 10%;
-          height: 20em;
-          background: var(--primary-color);
-          left: 0;
-          top: -4em;
-      }
-
-      &:after {
-          content: '';
-          position: absolute;
-          width: 200px;
-          height: 20em;
-          background: url('../images/dots.svg') no-repeat;
-          left: 4.5em;
-          top: 2em;
-      }
-  }
-}

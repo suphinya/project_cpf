@@ -1,31 +1,33 @@
-<h1 class="headerer">
-	<%= link_to 'Assign shift', root_path %>
-</h1>
 
-
-<h1> 
+<h1 class="title"> 
 	<%= @department_name %> 
 </h1>
 
-<%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
+<div id="pick_time">
+	<div class="item">
+<%= link_to 'Plan', edit_dashboard_path(@department_name), :class =>"plan-btn-show" %><br>
+	</div>
 <% day = Time.current.strftime("%Y-%m-%d") %>
 <% date = day.to_time %>
-
-<div id = "pick_time">
 	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
-		กะการทำงาน :    
-		<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
-		<br>
+		<div class="form-container">
+		<div class="item">
+			<a>กะการทำงาน :</a>    
+			<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
+		</div>
+		<div class="item">
 		วันที่ทำงาน : 
 		<% if @status == true %>
 			<%= date_field("date_work", "date_work" , :value => @calender ) %>
 		<% else %>
 			<%= date_field("date_work", "date_work" , :value => day ) %>
 		<% end %>
+		</div>
+		<div class="item">
 		<%= submit_tag 'choose' , :name => "choose"  %>
+		</div>
+		</div>
 	<% end %>
-</div>
-
 
 <% num_now = 0 %>
 <% num_plan = 0 %>
@@ -59,10 +61,12 @@
 
 
 <% end %>
-
+<div class="item">
 <%= "จำนวนคน : "+ num_now.to_s + " / " + num_plan.to_s %>
+</div>
+</div>
 
-
+<div class="table-container">
 <table >
 	<thead>
 		<tr>
@@ -128,7 +132,8 @@
 		<% end %>
 	</tbody>
 </table>
+</div>
 
 <script type="text/javascript">         
-      setTimeout("location.reload();",10000);
+      
 </script>
