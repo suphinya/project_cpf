@@ -1,6 +1,11 @@
 
+<<<<<<< HEAD
 <h1 class="title">
 	<%= @department_name %>
+=======
+<h1> 
+	<%= "แผนก : " + @department_name %> 
+>>>>>>> 47d828a1a17f7bd4cb392bca70aa5d0837840dd4
 </h1>
 
 <div id="pick_time">
@@ -22,23 +27,38 @@
 		<% else %>
 			<%= date_field("date_work", "date_work" , :value => day ) %>
 		<% end %>
+<<<<<<< HEAD
 		</div>
 		<div class="item">
 		<%= submit_tag 'choose' , :name => "choose"  %>
 		</div>
 		</div>
+=======
+		<%= submit_tag 'select' , :name => "choose"  %>
+>>>>>>> 47d828a1a17f7bd4cb392bca70aa5d0837840dd4
 	<% end %>
 
 <% num_now = 0 %>
 <% num_plan = 0 %>
 
 <% @all_workers.each do |num| %>
-	<% actual = num.actuals.find_by_date(date) %>
+
+	<% actual = num.actuals.find_by_date(@calender) %>
 	<% if actual != nil %>
-		<% if actual.time_in != nil && actual.time_out == nil %>
-			<% num_now += 1 %>
+		<% if @select == "all"  %>
+			<% if actual.time_in != nil && actual.time_out == nil %>
+				<% num_now += 1 %>
+			<% end %>	
+		<% else %>
+			<% plan = num.plans.find_by(:date => @calender , :time_in => @t_in) %>
+			<% if actual.time_in != nil && actual.time_out == nil && plan != nil %>
+				<% num_now += 1 %>
+			<% end %>
+		
 		<% end %>
 	<% end %>
+
+
 
 	<% if @select == "all"  %>
 		<% if @status == false %>
