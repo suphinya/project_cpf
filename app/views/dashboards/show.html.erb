@@ -4,7 +4,7 @@
 
 
 <h1> 
-	<%= @department_name %> 
+	<%= "แผนก : " + @department_name %> 
 </h1>
 
 <%= link_to 'Plan', edit_dashboard_path(@department_name) %><br>
@@ -22,7 +22,7 @@
 		<% else %>
 			<%= date_field("date_work", "date_work" , :value => day ) %>
 		<% end %>
-		<%= submit_tag 'choose' , :name => "choose"  %>
+		<%= submit_tag 'select' , :name => "choose"  %>
 	<% end %>
 </div>
 
@@ -31,12 +31,23 @@
 <% num_plan = 0 %>
 
 <% @all_workers.each do |num| %>
-	<% actual = num.actuals.find_by_date(date) %>
+
+	<% actual = num.actuals.find_by_date(@calender) %>
 	<% if actual != nil %>
-		<% if actual.time_in != nil && actual.time_out == nil %>
-			<% num_now += 1 %>
+		<% if @select == "all"  %>
+			<% if actual.time_in != nil && actual.time_out == nil %>
+				<% num_now += 1 %>
+			<% end %>	
+		<% else %>
+			<% plan = num.plans.find_by(:date => @calender , :time_in => @t_in) %>
+			<% if actual.time_in != nil && actual.time_out == nil && plan != nil %>
+				<% num_now += 1 %>
+			<% end %>
+		
 		<% end %>
 	<% end %>
+
+
 
 	<% if @select == "all"  %>
 		<% if @status == false %>
