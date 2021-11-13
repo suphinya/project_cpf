@@ -11,21 +11,21 @@
 <% date = day.to_time %>
 	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
 		<div class="form-container">
-		<div class="item">
-			<a>กะการทำงาน :</a>
-			<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
-		</div>
-		<div class="item">
-		วันที่ทำงาน :
-		<% if @status == true %>
-			<%= date_field("date_work", "date_work" , :value => @calender ) %>
-		<% else %>
-			<%= date_field("date_work", "date_work" , :value => day ) %>
-		<% end %>
-		</div>
-		<div class="item">
-		<%= submit_tag 'select' , :name => "choose"  %>
-		</div>
+			<div class="item">
+				<a>กะการทำงาน :</a>
+				<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
+			</div>
+			<div class="item">
+			วันที่ทำงาน :
+			<% if @status == true %>
+				<%= date_field("date_work", "date_work" , :value => @calender ) %>
+			<% else %>
+				<%= date_field("date_work", "date_work" , :value => day ) %>
+			<% end %>
+			</div>
+			<div class="item">
+			<%= submit_tag 'select' , :name => "choose"  %>
+			</div>
 		</div>
 	<% end %>
 
@@ -146,5 +146,5 @@
 </div>
 
 <script type="text/javascript">
-	setTimeout("location.reload();",10000);
+
 </script>

@@ -106,3 +106,47 @@ input:focus{
      
     
 }
+
+
+@media screen and (max-width: 992px) {
+    .login {
+        background-color: white;
+        display: grid;
+        margin-top: 25px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 5px 0 5px 0 #bbbbbb;
+        padding-bottom: 2em;
+    }
+
+    #username {
+        font-size: 12px;
+    }
+    
+    #password {
+        font-size: 12px;
+    }
+
+    .input-div{
+        display: grid;
+        grid-template-columns:  100%;
+        margin: 0 ;
+        padding: 25px;
+        div {
+            position: relative;
+            height: 45px;
+        }
+        h5{
+            position: absolute;
+            transform: translate(10%,-75%);
+            font-size: 12px;
+            transition: .3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+}
