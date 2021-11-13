@@ -18,16 +18,17 @@ class EmployeesController < ApplicationController
 				user.actuals << user_actual
 				plan.actuals << user_actual
 				flash[:notice] = "check in success"
-			else
+			elsif check_actual.time_in != nil
 				flash[:notice] = "You have check in before !"
 			end	
 			redirect_to schedule_path
 		elsif (params.key?("save_in"))
 			flash[:notice] = "You don't have any plan !"
+
 		end
 
 		if (params.key?("save_out")) && plan != nil
-			if check_actual != nil 
+			if check_actual != nil && check_actual.time_out == nil
 				check_actual.update(:time_out => @time )
 				act_out = check_actual.time_out
 				plan_out = plan.time_out
@@ -38,7 +39,7 @@ class EmployeesController < ApplicationController
 				flash[:notice] = "You have check out before !"
 			end	
 			redirect_to schedule_path
-		elsif (params.key?("save_in"))
+		elsif (params.key?("save_out"))
 			flash[:notice] = "You don't have any plan !"
 		end
 		

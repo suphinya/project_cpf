@@ -1,6 +1,6 @@
 
-<h1 class="title"> 
-	<%= @department_name %> 
+<h1 class="title">
+	<%= @department_name %>
 </h1>
 
 <div id="pick_time">
@@ -12,11 +12,11 @@
 	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
 		<div class="form-container">
 		<div class="item">
-			<a>กะการทำงาน :</a>    
+			<a>กะการทำงาน :</a>
 			<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
 		</div>
 		<div class="item">
-		วันที่ทำงาน : 
+		วันที่ทำงาน :
 		<% if @status == true %>
 			<%= date_field("date_work", "date_work" , :value => @calender ) %>
 		<% else %>
@@ -79,7 +79,7 @@
 	<tbody>
 		<% @all_workers.each do |worker| %>
 			<tr>
-				
+
 				<% if @status == false %>
 					<% worker_all_actuals = worker.actuals.find_by_date(date) %>
 				<% elsif @status == true %>
@@ -125,7 +125,7 @@
 						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
 						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S') %></td>
 						<td> <%= '- / ' + worker_all_plan.OT.to_s %></td>
-					
+
 					<% end %>
 				<% end %>
 			</tr>
@@ -134,6 +134,6 @@
 </table>
 </div>
 
-<script type="text/javascript">         
-      
+<script type="text/javascript">
+	setTimeout("location.reload();",10000);
 </script>
