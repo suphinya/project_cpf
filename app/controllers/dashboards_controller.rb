@@ -7,15 +7,15 @@ class DashboardsController < ApplicationController
 	def show
 		@dep = params[:id]
 	end
-	require 'date'
+
 	def time_plan
 		# get input from view
 		data = params.require(:emp).permit(:date, :time_in, :time_out, :OT)
 		# edit date(time in/out) => date
-		[1,2,3].each do |n|
-			data["time_in(#{n}i)"] = data["date(#{n}i)"]
-			data["time_out(#{n}i)"] = data["date(#{n}i)"]
-		end
+		#[1,2,3].each do |n|
+		#	data["time_in(#{n}i)"] = data["date(#{n}i)"]
+		#	data["time_out(#{n}i)"] = data["date(#{n}i)"]
+		#end
 		return data
 	end
 
@@ -37,12 +37,9 @@ class DashboardsController < ApplicationController
 				#if creation is successful, show up 'successful' message
 				flash[:notice] = "successful"
 				redirect_to edit_dashboard_path(@dep)
-			#else
-				#render 'edit'
+			else
+				render 'edit'
 			end
 		end
-
-		
-		
 	end
 end

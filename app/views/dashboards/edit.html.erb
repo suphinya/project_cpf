@@ -3,17 +3,17 @@
 </h1>
 <body>
   <h2>Plan แผนก <%= @dep %></h2>
+
   <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
     Date <%= date_select(:emp, :date) %><br>
     Time <%= time_select(:emp, :time_in, options={order: [:hour, :minute]}) %> - 
     <%= time_select(:emp, :time_out, options={order: [:hour, :minute]}) %><br>
-    <%= check_box_tag :check_all %> Select All
     OT <%= text_field :emp, :OT %>
     <%= submit_tag("Submit") %>
 
     <table>
       <tr>
-        <th>&nbsp;</th>
+        <th><%= check_box_tag :check_all %></th>
         <th>ชื่อ-นามสกุล</th>
         <th>เวลาเข้างาน</th>
         <th>เวลาออกงาน</th>
@@ -31,3 +31,5 @@
     </table>
   <% end %>
 </body>
+
+<%= javascript_pack_tag 'select_all', 'data-turbolinks-track':'reload' %>
