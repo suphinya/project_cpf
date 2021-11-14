@@ -33,8 +33,12 @@
 <% num_plan = 0 %>
 
 <% @all_workers.each do |num| %>
-
-	<% actual = num.actuals.find_by_date(@calender) %>
+	<% if @status == true %>
+		<% actual = num.actuals.find_by_date(@calender) %>
+	<% else %>
+		<% actual = num.actuals.find_by_date(day) %>
+	<% end %>
+	
 	<% if actual != nil %>
 		<% if @select == "all"  %>
 			<% if actual.time_in != nil && actual.time_out == nil %>
