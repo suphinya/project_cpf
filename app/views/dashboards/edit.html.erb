@@ -35,20 +35,18 @@
         <td><%= check_box_tag "select_user[]", users.id %></td>
         <td><%= users.name.to_s+" "+users.surname.to_s %></td>
         <% if user_plan != nil  %>
-          <td><%= (user_plan.time_in).strftime('%H:%M:%S') %></td>
+          <% if user_plan.date != nil  %>
+            <td><%= (user_plan.time_in).strftime('%H:%M:%S') %></td>
+            <td><%= (user_plan.time_out).strftime('%H:%M:%S') %></td>
+            <td><%= user_plan.OT.to_s %></td>
+          <% else %>
+            <td> - </td>
+            <td> - </td>
+            <td> - </td>
+          <% end %>
         <% else %>
           <td> - </td>
-        <% end %>
-
-        <% if user_plan != nil  %>
-          <td><%= (user_plan.time_out).strftime('%H:%M:%S') %></td>
-        <% else %>
           <td> - </td>
-        <% end %>
-
-        <% if user_plan != nil  %>
-          <td><%= user_plan.OT.to_s %></td>
-        <% else %>
           <td> - </td>
         <% end %>
       </tr>
