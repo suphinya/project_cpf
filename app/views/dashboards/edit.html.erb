@@ -26,12 +26,31 @@
         <th>OT Plane</th>
       </tr>
       <% @employee.each do |users| %>
+      <% if @status == false %>
+          <% user_plan = users.plans.find_by_date(today) %>
+      <% elsif @status == true %>
+          <% user_plan = users.plans.find_by_date(@calender) %>
+      <% end %>
       <tr>
         <td><%= check_box_tag "select_user[]", users.id %></td>
         <td><%= users.name.to_s+" "+users.surname.to_s %></td>
-        <td>time in</td>
-        <td>time out</td>
-        <td>ot</td>
+        <% if user_plan != nil  %>
+          <td><%= (user_plan.time_in).strftime('%H:%M:%S') %></td>
+        <% else %>
+          <td> - </td>
+        <% end %>
+
+        <% if user_plan != nil  %>
+          <td><%= (user_plan.time_out).strftime('%H:%M:%S') %></td>
+        <% else %>
+          <td> - </td>
+        <% end %>
+
+        <% if user_plan != nil  %>
+          <td><%= user_plan.OT.to_s %></td>
+        <% else %>
+          <td> - </td>
+        <% end %>
       </tr>
       <% end %>
     </table>
