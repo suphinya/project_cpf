@@ -1,0 +1,150 @@
+
+<h1 class="title">
+	<%= "แผนก : " + @department_name %>
+</h1>
+
+<div id="pick_time">
+	<div class="item">
+<%= link_to 'Plan', edit_dashboard_path(@department_name), :class =>"plan-btn-show" %><br>
+	</div>
+<% day = Time.current.strftime("%Y-%m-%d") %>
+<% date = day.to_time %>
+	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
+		<div class="form-container">
+		<div class="item">
+			<a>กะการทำงาน :</a>
+			<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
+		</div>
+		<div class="item">
+		วันที่ทำงาน :
+		<% if @status == true %>
+			<%= date_field("date_work", "date_work" , :value => @calender ) %>
+		<% else %>
+			<%= date_field("date_work", "date_work" , :value => day ) %>
+		<% end %>
+		</div>
+		<div class="item">
+		<%= submit_tag 'select' , :name => "choose"  %>
+		</div>
+		</div>
+	<% end %>
+
+<% num_now = 0 %>
+<% num_plan = 0 %>
+
+<% @all_workers.each do |num| %>
+
+	<% actual = num.actuals.find_by_date(@calender) %>
+	<% if actual != nil %>
+		<% if @select == "all"  %>
+			<% if actual.time_in != nil && actual.time_out == nil %>
+				<% num_now += 1 %>
+			<% end %>
+		<% else %>
+			<% plan = num.plans.find_by(:date => @calender , :time_in => @t_in) %>
+			<% if actual.time_in != nil && actual.time_out == nil && plan != nil %>
+				<% num_now += 1 %>
+			<% end %>
+
+		<% end %>
+	<% end %>
+
+
+
+	<% if @select == "all"  %>
+		<% if @status == false %>
+			<% plan = num.plans.find_by_date(date) %>
+		<% elsif @status == true %>
+			<% plan = num.plans.find_by_date(@calender) %>
+		<% end %>
+
+		<% if plan != nil %>
+			<% num_plan += 1 %>
+		<% end %>
+
+	<% else %>
+		<% plan = num.plans.find_by(:date => @calender , :time_in => @t_in) %>
+		<% if plan != nil %>
+			<% num_plan += 1 %>
+		<% end %>
+
+	<% end %>
+
+
+<% end %>
+<div class="item">
+<%= "จำนวนคน : "+ num_now.to_s + " / " + num_plan.to_s %>
+</div>
+</div>
+
+<div class="table-container">
+<table >
+	<thead>
+		<tr>
+			<th> ชื่อ-นามสกุล </th>
+			<th> เวลาเข้างาน </th>
+			<th> เวลาออกงาน </th>
+			<th> OT </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @all_workers.each do |worker| %>
+			<tr>
+
+				<% if @status == false %>
+					<% worker_all_actuals = worker.actuals.find_by_date(date) %>
+				<% elsif @status == true %>
+					<% worker_all_actuals = worker.actuals.find_by_date(@calender) %>
+				<% end %>
+
+				<% if @select == "all"  %>
+					<% if @status == false %>
+						<% worker_all_plan = worker.plans.find_by_date(date) %>
+					<% elsif @status == true %>
+						<% worker_all_plan = worker.plans.find_by_date(@calender) %>
+					<% end %>
+
+				<% else %>
+					<% worker_all_plan = worker.plans.find_by(:date => @calender , :time_in => @t_in) %>
+				<% end %>
+
+				<% if worker_all_actuals != nil && worker_all_plan != nil  %>
+
+					<td><%= worker.name + " " + worker.surname %></td>
+
+					<% if worker_all_actuals.time_in != nil  %>
+						<td><%= worker_all_actuals.time_in.strftime('%H:%M:%S') + '/' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
+					<% else %>
+						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %> </td>
+					<% end %>
+
+					<% if worker_all_actuals.time_out != nil %>
+						<td><%= worker_all_actuals.time_out.strftime('%H:%M:%S') + '/' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S')%></td>
+					<% else %>
+						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S') %></td>
+					<% end %>
+
+					<% if worker_all_actuals.OT != nil %>
+						<td><%= worker_all_actuals.OT.to_s + '/' + worker_all_plan.OT.to_s %></td>
+					<% else %>
+						<td> <%= '- / ' + worker_all_plan.OT.to_s %></td>
+					<% end %>
+
+				<% else %>
+					<% if worker_all_plan != nil %>
+						<td><%= worker.name + " " + worker.surname %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S') %></td>
+						<td> <%= '- / ' + worker_all_plan.OT.to_s %></td>
+
+					<% end %>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>
+
+<script type="text/javascript">
+	setTimeout("location.reload();",10000);
+</script>

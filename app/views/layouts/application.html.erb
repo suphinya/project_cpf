@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+  <img class="background" src="/assets/wave.png" width="500px">
+  <div class="navbar">
+        <div class="container">
+            
+            <% if logged_in? && current_user.position == "employee" %>
+              <%= link_to 'Assight<span>Shift</span>'.html_safe, schedule_path, :class => "logo" %>
+            <% else %>
+              <%= link_to 'Assight<span>Shift</span>'.html_safe, root_path, :class => "logo" %>
+            <% end %>
+
+            <img id="mobile-cta" class="mobile-menu" src="/assets/menu.svg" alt="Open Navigation">
+            <nav>
+                <img id="mobile-exit" class="mobile-menu-exit" src="/assets/exit.svg" alt="Close Navigation">
+                
+                <ul class="primary-nav">
+                    <li class="current">
+                      <% if logged_in? && current_user.position == "employee" %>
+                        <%= link_to 'Home', schedule_path%>
+                      <% else %>
+                        <%= link_to 'Home', root_path %>
+                      <% end %>
+                        
+                    </li>
+                </ul>
+
+                <ul class="secondary-nav">
+                    <li><% if logged_in? %><a>Welcome, <%= current_user.name %></a>
+                    </li>
+                    <li><%= link_to 'logout', logout_path,:class => "go-premium-cta" %><li>
+                    <%else%>
+                    <li><a>welcome</a></li>
+                    <li class="go-premium-cta"><a href="#">Logout</a></li>
+                    <%end%>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+  <div id="main">
+    <% if flash[:notice] %>
+      <div class="message" id="notice">
+
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:warning] %>
+      <div class="message" id="warning">
+        <%= flash[:warning] %>
+      </div>
+    <% end %>
+    <%= yield %>
+  
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+
+        const mobileBtn = document.getElementById('mobile-cta')
+              nav = document.querySelector('nav')
+              mobileBtnExit = document.getElementById('mobile-exit');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.add('menu-btn');
+        })
+
+        mobileBtnExit.addEventListener('click', () => {
+            nav.classList.remove('menu-btn');
+        })
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<h1 class="headerer">
+  <%= link_to 'Assign shift', root_path %>
+</h1>
+<body>
+  <h2>Plan แผนก <%= @dep %></h2>
+  
+  <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
+    <% today = Time.current.strftime("%Y-%m-%d") %>
+    Date
+    <% if @status == true %>
+      <%= date_field(:emp, :date, :value => @calender, :min => today ) %>
+    <% else %>
+      <%= date_field(:emp, :date, :value => today, :min => today ) %>
+    <% end %>
+    <%= submit_tag 'select' , :name => "choose"  %><br>
+    Time <%= select_tag :time, options_for_select(@all_time, @default_select)  %>
+    OT <%= text_field :emp, :OT %>
+    <%= submit_tag "Submit" , :name=>'ass_button' %>
+
+    <table>
+      <tr>
+        <th><%= check_box_tag :check_all %></th>
+        <th>ชื่อ-นามสกุล</th>
+        <th>เวลาเข้างาน</th>
+        <th>เวลาออกงาน</th>
+        <th>OT Plane</th>
+      </tr>
+      <% @employee.each do |users| %>
+      <% if @status == false %>
+          <% user_plan = users.plans.find_by_date(today) %>
+      <% elsif @status == true %>
+          <% user_plan = users.plans.find_by_date(@calender) %>
+      <% end %>
+      <tr>
+        <td><%= check_box_tag "select_user[]", users.id %></td>
+        <td><%= users.name.to_s+" "+users.surname.to_s %></td>
+        <% if user_plan != nil  %>
+          <% if user_plan.date != nil  %>
+            <td><%= (user_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
+            <td><%= (user_plan.time_out + (3600*12)).strftime('%H:%M:%S') %></td>
+            <td><%= user_plan.OT.to_s %></td>
+          <% else %>
+            <td> - </td>
+            <td> - </td>
+            <td> - </td>
+          <% end %>
+        <% else %>
+          <td> - </td>
+          <td> - </td>
+          <td> - </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+</body>
+
+<%= javascript_pack_tag 'select_all', 'data-turbolinks-track':'reload' %>

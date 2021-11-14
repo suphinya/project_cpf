@@ -1,0 +1,54 @@
+
+<body>
+<h1> schedule ตารางงาน <%= current_user.name %> </h1>
+
+<div class="table-container">
+<%= form_tag schedule_path , :method => :get do %>
+  <%= button_tag "Time in", :type => "save_in" , :name => "save_in" %>
+  <%= button_tag "Time out", :type => "save_out" , :name => "save_out" %>
+<% end %>
+
+<table >
+  <thead>
+    <th> วันที่ </th>
+    <th> เวลาเข้างาน </th>
+    <th> เวลาออกงาน </th>
+    <th> OT </th>
+  </thead>
+  <tbody>
+    <% @all_plans.each do |plan| %>
+      <tr>
+        <% check_actual = Actual.find_by_plan_id(plan.id) %>
+        <td><%= plan.date.strftime("%Y-%m-%d") %></td>
+        <% if check_actual != nil %>
+          <% if check_actual.time_in == nil %>
+            <td><%= "- / " + (plan.time_in + (3600*12)).strftime("%H:%M:%S") %></td>
+          <% else %>
+            <td><%= check_actual.time_in.strftime("%H:%M:%S") + " / " + (plan.time_in + (3600*12)).strftime("%H:%M:%S") %></td>
+          <% end %>
+          <% if check_actual.time_out == nil %>
+            <td><%= "- / " + (plan.time_out + (3600*12)).strftime("%H:%M:%S") %></td>
+          <% else %>
+            <td><%= check_actual.time_out.strftime("%H:%M:%S") + " / " + (plan.time_out + (3600*12)).strftime("%H:%M:%S") %></td>
+          <% end %>
+          <% if check_actual.OT == nil %>
+            <td><%= "- / " + plan.OT.to_s %></td>
+          <% else %>
+            <td><%= check_actual.OT.to_s + " / " + plan.OT.to_s %></td>
+          <% end %>
+        <% else %>
+          <% if plan != nil %>
+            <td> <%= '- / ' + (plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
+            <td> <%= '- / ' + (plan.time_out + (3600*12)).strftime('%H:%M:%S') %></td>
+            <td> <%= '- / ' + plan.OT.to_s %></td>
+          <% else %>
+            <td> - </td>
+            <td> - </td>
+            <td> - </td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
