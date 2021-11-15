@@ -12,4 +12,10 @@ Project::Application.routes.draw do
 
   get '/schedule', :controller => 'employees', :action => 'show'
 
+  get '/admin', :controller => 'admin', :action => 'index'
+  get '/admin/create_employee', :controller => 'admin', :action => 'create_employee'
+  post '/admin/create_employee', :controller => 'admin', :action => 'create_employee'
+  get '/admin/create_leader', :controller => 'admin', :action => 'create_leader'
+  post '/admin/create_leader', :controller => 'admin', :action => 'create_leader'
+
 end

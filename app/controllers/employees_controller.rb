@@ -35,13 +35,50 @@ class EmployeesController < ApplicationController
 				@ot = (act_out-plan_out+(12*3600))/(60*60)
 				check_actual.update(:OT => @ot )
 				flash[:notice] = "check out success"
+
+			elsif check_actual == nil 
+				check_one = Actual.find_by(:date => (@date - (24*3600)) , :user_id => userid)
+				plan_one = Plan.find_by(:user_id => userid , :date => (@date - (24*3600)))
+
+				if plan_one != nil && check_one != nil && check_one.time_in != nil && check_one.time_out == nil
+					check_one.update(:time_out => @time )
+					act_out = check_one.time_out
+					
+					plan_out = plan_one.time_out
+					@ot = (act_out-plan_out+(12*3600))/(60*60)
+					check_one.update(:OT => @ot )
+					flash[:notice] = "check out success"
+
+				end
+
 			else
 				flash[:notice] = "You have check out before !"
 			end	
+
 			redirect_to schedule_path
+
+
+
 		elsif (params.key?("save_out"))
-			flash[:notice] = "You don't have any plan !"
+
+			check_two = Actual.find_by(:date => (@date - (24*3600)) , :user_id => userid)
+			plan_two = Plan.find_by(:user_id => userid , :date => (@date - (24*3600)))
+
+			if plan_two != nil && check_two != nil && check_two.time_in != nil && check_two.time_out == nil
+
+				check_two.update(:time_out => @time )
+				act_out = check_two.time_out
+					
+				plan_out = plan_two.time_out
+				@ot = (act_out-plan_out+(12*3600))/(60*60)
+				check_two.update(:OT => @ot )
+				flash[:notice] = "check out success"
+				redirect_to schedule_path
+				
+			else
+				flash[:notice] = "You don't have any plan !"
+			end
 		end
-		
+
 	end
 end

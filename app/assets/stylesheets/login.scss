@@ -7,12 +7,58 @@ body {
     margin: 0;
     font-family: 'IBM Plex Sans Thai', sans-serif;
 }
+
 .background {
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: -1;
 }
+
+.login-btn {
+  background-color: #2b5843;
+  color: white;
+  font-weight: bold;
+  font-size: 1.3em;
+  border: none;
+  border-radius: 5em;
+  display: inline-block;
+  padding: .5em 2.5em;
+  width: unset;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  margin-bottom: 3em;
+
+  &:hover {
+    background: #1d3a2c;
+    color: white;
+  }
+}
+
+.input-login input, textarea{
+    width: 100%;
+    padding: .8em;
+    margin-bottom: 1em;
+    border-radius: .3em;
+    border: 1px solid gray;
+    box-sizing: border-box;
+  }
+  
+.input-login   select {
+    padding: .8em;
+    margin-bottom: 1em;
+    border-radius: .3em;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    background: transparent;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+  }
+  
+
+
 .login {
     background-color: white;
     display: grid;
@@ -87,24 +133,24 @@ body {
     border-color: #dddddd;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-size: 18px;
-    padding: 12px; 
+    padding: 12px;
     &:focus {
         background: #bbbbbb;
     }
-    
+
 }
 
 input:focus{
     outline: none;
 }
 .input-div.focus .attr{
-    
+
     position: absolute;
     transform: translate(10%,-200%);
     font-size: 18px;
     transition: .3s;
-     
-    
+
+
 }
 
 
@@ -123,10 +169,26 @@ input:focus{
         padding-bottom: 2em;
     }
 
+    .login-btn {
+        color: white;
+        font-weight: bold;
+        font-size: 1em;
+        border: none;
+        border-radius: 5em;
+        display: inline-block;
+        padding: .5em 2.5em;
+        width: unset;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-family: 'IBM Plex Sans Thai', sans-serif;
+        margin-bottom: .1em;
+    
+    }
+
     #username {
         font-size: 12px;
     }
-    
+
     #password {
         font-size: 12px;
     }

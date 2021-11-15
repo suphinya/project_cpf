@@ -5,13 +5,13 @@
 			<h2>Welcome</h2>
 			<div class="input-div one focus">
 			<h5 class="attr">Username</h5>
-			<%= text_field_tag :username %><br>
+			<%= text_field_tag :username, "", :class => "input-login" %><br>
 			</div>
 			<div class="input-div two focus">
 			<h5 class="attr">Password</h5>
-			<%= password_field_tag :password %><br>
+			<%= password_field_tag :password ,"", :class => "input-login" %><br>
 			</div>
-			<%= submit_tag "LOGIN" %>
+			<%= submit_tag "LOGIN", :class => "login-btn" %>
 		<% end %>
 	</div>
 </div>

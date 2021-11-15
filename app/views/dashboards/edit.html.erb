@@ -1,22 +1,27 @@
-<h1 class="headerer">
-  <%= link_to 'Assign shift', root_path %>
-</h1>
 <body>
-  <h2>Plan แผนก <%= @dep %></h2>
-  
-  <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
-    <% today = Time.current.strftime("%Y-%m-%d") %>
-    Date
-    <% if @status == true %>
-      <%= date_field(:emp, :date, :value => @calender, :min => today ) %>
-    <% else %>
-      <%= date_field(:emp, :date, :value => today, :min => today ) %>
-    <% end %>
-    <%= submit_tag 'select' , :name => "choose"  %><br>
-    Time <%= select_tag :time, options_for_select(@all_time, @default_select)  %>
-    OT <%= text_field :emp, :OT %>
-    <%= submit_tag "Submit" , :name=>'ass_button' %>
+  <h1 class='title'>Plan แผนก <%= @dep %></h2>
 
+ 
+    <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
+      <div class="pick-time">
+      <div class="section-select-container">
+        <% today = Time.current.strftime("%Y-%m-%d") %>
+        Date
+        <% if @status == true %>
+          <%= date_field(:emp, :date, :value => @calender, :min => today ) %>
+        <% else %>
+          <%= date_field(:emp, :date, :value => today, :min => today ) %>
+        <% end %>
+        <%= submit_tag 'select' , :name => "choose", :class => "section-select-btn" %><br>
+      </div>
+      <div class="time-plan-container">
+        Time <%= select_tag :time, options_for_select(@all_time, @default_select)  %>
+        OT <%= text_field :emp, :OT %>
+        <%= submit_tag "Submit" , :name=>'ass_button' , :class => "summit-plan"%>
+      </div>
+      </div>
+
+  <div class="table-container">
     <table>
       <tr>
         <th><%= check_box_tag :check_all %></th>
@@ -53,6 +58,7 @@
       <% end %>
     </table>
   <% end %>
+</div>
 
 </body>
 

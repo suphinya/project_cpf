@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;500&display=swap');
+
+
+.pick-time {
+    width: 95%;
+    margin: 0 auto 0 auto;
+}
+.section-select-container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-bottom: .1rem solid #bbbbbb ;
+    box-shadow: 5px 0 5px 0 #bbbbbb;
+    border-left: 0.25rem solid #48daff!important;
+    gap: 10px;
+    padding: 1em;
+}
+
+
+.time-plan-container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 10% 40% 5% 10% 30%;
+    padding-bottom: 1em;
+    gap: 10px;
+    border-left: 0.25rem solid #ffdd48!important;
+    box-shadow: 5px 0 5px 0 #bbbbbb;
+    padding: 1em;
+}
+
+.section-select-btn {
+    background-color: #48daff;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+    padding-bottom: .4em;
+    padding-top: .4em;
+    
+}
+.summit-plan{
+    width: 90%;
+    background-color: #ffdd48;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+
+
+
+@media only screen and (min-width: 1080px) {
+    .pick-time {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 10px;
+        grid-template-rows: 10%;
+        width: 90%;
+        margin: 0 auto 0 auto;
+    }
+
+    .time-plan-container{
+        height: 20%;
+    }
+
+}
+
+

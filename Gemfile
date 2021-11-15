@@ -47,3 +47,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # more setting
 gem 'bcrypt' , '~> 3.1.16' #3.1.16
+gem "rspec-rails", "~> 5.0"
+gem "guard-rspec", "~> 4.7"
+gem "rails-controller-testing", "~> 1.0"
+gem "factory_girl_rails", "~> 4.9"
+gem 'font-awesome-rails'

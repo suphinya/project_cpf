@@ -1,33 +1,48 @@
+
 <div class="item-container">
     <div class="title-department">
-    <%= current_user.department1 %>
+        <%= link_to current_user.department1 ,  dashboard_path(current_user.department1), :class => "title-department-tag"  %>
+        <p>00:00-09:00
+    </div>
+    <div class="percent-container">
+    <p> <%=  @now1 + ' / ' + @plan1 %> </p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
     </div>
     <div class="actual-btn">
-    <%= link_to 'actual',  dashboard_path(current_user.department1)  %>
+        <%= link_to ('<i class="fa fa-clock-o" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  dashboard_path(current_user.department1)  %>
+       
     </div>
     <div class="plan-btn">
-    <%= link_to 'plan',  edit_dashboard_path(current_user.department1)  %>
+        <%= link_to ('<i class="fa fa-pencil" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  edit_dashboard_path(current_user.department1)  %>
     </div>
 </div>
 <div class="item-container">
     <div class="title-department">
-    <%= current_user.department2 %>
+
+    <%= link_to current_user.department2 ,  dashboard_path(current_user.department2) %>
+    <p> <%=  @now2 + ' / ' + @plan2 %> </p>
+
     </div>
     <div class="actual-btn">
-    <%= link_to 'actual',  dashboard_path(current_user.department2)  %>
+        <%= link_to 'actual',  dashboard_path(current_user.department2)  %>
     </div>
     <div class="plan-btn">
-    <%= link_to 'plan',  edit_dashboard_path(current_user.department2)  %>
+        <%= link_to 'plan',  edit_dashboard_path(current_user.department2)  %>
     </div>
 </div>
 <div class="item-container">
     <div class="title-department">
-    <%= current_user.department3 %>
+
+    <%= link_to current_user.department3 ,  dashboard_path(current_user.department3) %>
+    <p> <%=  @now3 + ' / ' + @plan3 %> </p>
+
     </div>
     <div class="actual-btn">
-    <%= link_to 'actual',  dashboard_path(current_user.department3)  %>
+        <%= link_to 'actual',  dashboard_path(current_user.department3)  %>
     </div>
     <div class="plan-btn">
-    <%= link_to 'plan',  edit_dashboard_path(current_user.department3)  %>
+        <%= link_to 'plan',  edit_dashboard_path(current_user.department3)  %>
     </div>
 </div>

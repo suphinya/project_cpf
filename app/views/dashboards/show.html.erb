@@ -3,31 +3,33 @@
 	<%= "แผนก : " + @department_name %>
 </h1>
 
-<div id="pick_time">
+<div class="pick_time">
 	<div class="item">
-<%= link_to 'Plan', edit_dashboard_path(@department_name), :class =>"plan-btn-show" %><br>
+		<%= link_to 'Plan', edit_dashboard_path(@department_name), :class =>"plan-btn-show" %><br>
 	</div>
-<% day = Time.current.strftime("%Y-%m-%d") %>
-<% date = day.to_time %>
-	<%= form_tag dashboard_path(@department_name) , :method => :get do %>
+	<% day = Time.current.strftime("%Y-%m-%d") %>
+	<% date = day.to_time %>
+	<div class="item">
+		<%= form_tag dashboard_path(@department_name) , :method => :get do %>
 		<div class="form-container">
-			<div class="item">
+			<div class="item-form">
 				<a>กะการทำงาน :</a>
 				<%= select_tag 'time_in', options_for_select(@all_time, @select)  %>
 			</div>
-			<div class="item">
-			วันที่ทำงาน :
-			<% if @status == true %>
-				<%= date_field("date_work", "date_work" , :value => @calender ) %>
-			<% else %>
-				<%= date_field("date_work", "date_work" , :value => day ) %>
-			<% end %>
+			<div class="item-form">
+				วันที่ทำงาน :
+				<% if @status == true %>
+						<%= date_field("date_work", "date_work" , :value => @calender ) %>
+					<% else %>
+						<%= date_field("date_work", "date_work" , :value => day ) %>
+				<% end %>
 			</div>
-			<div class="item">
-			<%= submit_tag 'select' , :name => "choose"  %>
+			<div class="item-form">
+				<%= submit_tag 'select' , :name => "choose" , :class=>"select-time-btn" %>
 			</div>
 		</div>
-	<% end %>
+		<% end %>
+	</div>
 
 <% num_now = 0 %>
 <% num_plan = 0 %>
@@ -38,7 +40,6 @@
 	<% else %>
 		<% actual = num.actuals.find_by_date(day) %>
 	<% end %>
-	
 	<% if actual != nil %>
 		<% if @select == "all"  %>
 			<% if actual.time_in != nil && actual.time_out == nil %>
@@ -77,7 +78,7 @@
 
 <% end %>
 <div class="item">
-<%= "จำนวนคน : "+ num_now.to_s + " / " + num_plan.to_s %>
+	<%= "จำนวนคน : "+ num_now.to_s + " / " + num_plan.to_s %>
 </div>
 </div>
 
@@ -149,6 +150,6 @@
 </table>
 </div>
 
-<script type="text/javascript">
-			setTimeout("location.reload();",10000);
+<script type="text/javascript">         
+      setTimeout("location.reload();",20000);
 </script>

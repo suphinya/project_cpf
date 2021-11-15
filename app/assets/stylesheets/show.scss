@@ -7,18 +7,18 @@ body {
     font-family: 'IBM Plex Sans Thai', sans-serif;
 }
 
-#pick_time {
+.pick_time {
     margin-top: 1em;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 25px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto ;
     box-shadow: 5px 0 5px 0 #bbbbbb;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-
+    border-left: 0.25rem solid #36b9cc!important;
     
 }
 
@@ -31,14 +31,40 @@ body {
     margin: auto;
 }
 
+.form-container{
+  display: flex;
+  align-items:center;
+}
 
+.select-time-btn{
+    background-color: #2b5843;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    border: none;
+    border-radius: 5em;
+    display: inline-block;
+    padding: .5em 2.5em;
+    width: unset;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+  
+    &:hover {
+      background: #1d3a2c;
+      color: white;
+    }   
+}
+
+.item-form{
+    margin: .3em
+}
 
 @media screen and (max-width: 992px) {
-    
-    #pick_time {    
+
+    .pick_time {
         margin-top: 1em;
         background-color: white;
-        border-radius: 10px;
         padding: 1em;
         display: grid;
         grid-template-columns: auto ;
@@ -48,26 +74,33 @@ body {
         row-gap: 1em;
     }
 
-
-    
-
     .item {
         display: unset;
         margin-top: .3em;
         font-size: .8em;
+        width: 100%;
 
     }
-    
-
     #date_work_date_work {
-        margin-top: 1em;
-        margin-left: auto; 
         margin-right: auto;
+        width: 95%;
     }
-    
+
     .form-container{
         display: grid;
         grid-template-columns: auto;
 
+    }
+
+    .item-form{
+        display: grid;
+        grid-template-columns: auto;
+        gap: 1px;
+        width: 100%;
+        margin: .3em
+    }
+
+    .plan-btn-show {
+        margin-left :auto;
     }
 }

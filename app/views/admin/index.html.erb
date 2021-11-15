@@ -1,0 +1,58 @@
+
+<h1> All Users </h1>
+
+<div id="create-user-btn">
+	<%= link_to "Create Employee", admin_create_employee_path %> <br>
+	<%= link_to "Create Leader", admin_create_leader_path %> <br>
+</div>
+
+<h2> All Leaders</h2>
+<table>
+	<thead>
+		<tr>
+			<th> ID </th>
+			<th> Username </th>
+			<th> ชื่อ-นามสกุล </th>
+			<th> แผนกที่ 1 </th>
+			<th> แผนกที่ 2 </th>
+			<th> แผนกที่ 3 </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @leader_users.each do |leader| %>
+		<tr>
+			<td><%= leader.id %></td>
+			<td><%= leader.username %></td>
+			<td><%= leader.name + ' ' + leader.surname %></td>
+			<td><%= leader.department1 %></td>
+			<td><%= leader.department2 %></td>
+			<td><%= leader.department3 %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<hr>
+
+
+<h2> All Employees </h2>
+<table>
+	<thead>
+		<tr>
+			<th> ID </th>
+			<th> Username </th>
+			<th> ชื่อ-นามสกุล </th>
+			<th> แผนก </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @worker_users.each do |worker| %>
+		<tr>
+			<td><%= worker.id %></td>
+			<td><%= worker.username %></td>
+			<td><%= worker.name + ' ' + worker.surname %></td>
+			<td><%= worker.department1 %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

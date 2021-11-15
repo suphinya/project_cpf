@@ -16,10 +16,12 @@ all_humen = [
 	{:username => '33333' , :password_digest => '33333' , :name => 'chanda' , :surname => 'soon' , :position => 'employee' , 
 		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''},
 	{:username => '44444' , :password_digest => '44444' , :name => 'thatphoom' , :surname => 'pao' , :position => 'employee' , 
-		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''}
+		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''},
+	{:username => 'admin' , :password_digest => 'admin' , :name => 'admin' , :surname => 'admin' , :position => 'admin' , 
+		:department1 => '' , :department2 => '' , :department3 => ''}
 ]
 
-password = ['00001','11111','22222','33333','44444']
+password = ['00001','11111','22222','33333','44444','admin']
 
 all_humen.each do |humen|
 	User.create(humen)
@@ -33,3 +35,11 @@ password.each do |password|
 end
 
 
+user_id = [2,3]
+day = Time.current.strftime("%Y-%m-%d")
+user_id.each do |id|
+	u = User.find(id)
+	plan = Plan.create(:date => day.to_time , :time_in => (day +' '+" 9:00").to_time,
+		:time_out => (day +' '+" 18:00").to_time , :OT => 2)
+	u.plans << plan
+end

@@ -1,0 +1,10 @@
+
+<h1> Create Employee User </h1>
+
+<%= form_tag admin_create_employee_path, :method => :post do %>
+	<%= render :partial => 'create_user' %>
+	Department : <%= text_field("department1", "department1") %> <br>
+	<%= submit_tag 'Submit' , :name => "submit" %> <br>
+<% end %>
+
+

@@ -1,6 +1,22 @@
 class DashboardsController < ApplicationController
 
 	def index
+		depart1 = current_user.department1
+		depart2 = current_user.department2
+		depart3 = current_user.department3
+
+		user1 = User.where(:department1 => depart1 , :position => 'employee')
+		user2 = User.where(:department1 => depart2 , :position => 'employee')
+		user3 = User.where(:department1 => depart3 , :position => 'employee')
+		
+		@now1 = check_worker(user1).to_s
+		@now2 = check_worker(user2).to_s
+		@now3 = check_worker(user3).to_s
+
+		@plan1 = check_all(user1).to_s
+		@plan2 = check_all(user2).to_s
+		@plan3 = check_all(user3).to_s
+
 	end
 
 	def time_plan
@@ -27,23 +43,48 @@ class DashboardsController < ApplicationController
 		@dep = params[:id]
 		@users = User.where(:department1 => @dep)
 		@employee = @users.select{|user| user.position=="employee"}
+		date_now = Time.current.strftime("%Y-%m-%d")
 		# click to assign shift
 		if (params.key?('ass_button'))
 			@calender = params[:emp][:date]
-			# list of user id (tick checkbox)
-			@uID_list = params[:select_user]
-			new_time_out = (@calender+' '+(params[:time].split[2])).to_time
-			new_time_in = (@calender+' '+(params[:time].split[0])).to_time
-			tomorrow = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00","08:30"]
-			if tomorrow.include?(params[:time].split[2])
-				new_time_out += (3600*24)
-			end
-			if @uID_list
-				@uID_list.each do |uID|
-					@all_user_plan = Plan.find_by_user_id(uID) # get database
-					if @all_user_plan != nil
-						# insert each data to Plan database
-						if (@all_user_plan.time_in > new_time_out && @all_user_plan.time_in > new_time_in) || (@all_user_plan.time_out < new_time_in && @all_user_plan.time_out < new_time_out)
+			if @calender.to_time >= date_now.to_time
+				# list of user id (tick checkbox)
+				@uID_list = params[:select_user]
+				new_time_out = (@calender+' '+(params[:time].split[2])).to_time
+				new_time_in = (@calender+' '+(params[:time].split[0])).to_time
+				tomorrow = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00","08:30"]
+				if tomorrow.include?(params[:time].split[2])
+					new_time_out += (3600*24)
+				end
+				if @uID_list
+					@uID_list.each do |uID|
+						@all_user_plan = Plan.find_by_user_id(uID) # get database
+						if @all_user_plan != nil
+							# insert each data to Plan database
+							if (@all_user_plan.time_in > new_time_out && @all_user_plan.time_in > new_time_in) || (@all_user_plan.time_out < new_time_in && @all_user_plan.time_out < new_time_out)
+								@assign = Plan.create(time_plan)
+								user = User.find(uID.to_i)
+								user.plans << @assign
+								if @assign.save
+									#if creation is successful, show up 'successful' message
+									flash[:notice] = "Assign shift successfully"
+									#redirect_to edit_dashboard_path(@dep)
+								else
+									render 'edit'
+								end
+							# update each data to Plan database		
+							elsif (@all_user_plan.time_in < new_time_out && @all_user_plan.time_in > new_time_in) || (@all_user_plan.time_out > new_time_in && @all_user_plan.time_out < new_time_out)
+								if @all_user_plan.update_attributes(time_plan) 
+									flash[:notice] = "Update shift successfully"
+									#redirect_to edit_dashboard_path(@dep)
+								else
+									render 'edit'
+								end
+							else
+								flash[:notice] = "Can't assign shift"
+							end
+						# create data Plan if don't have anything in database
+						else
 							@assign = Plan.create(time_plan)
 							user = User.find(uID.to_i)
 							user.plans << @assign
@@ -54,32 +95,12 @@ class DashboardsController < ApplicationController
 							else
 								render 'edit'
 							end
-						# update each data to Plan database		
-						elsif (@all_user_plan.time_in < new_time_out && @all_user_plan.time_in > new_time_in) || (@all_user_plan.time_out > new_time_in && @all_user_plan.time_out < new_time_out)
-							if @all_user_plan.update_attributes(time_plan) 
-								flash[:notice] = "Update shift successfully"
-								#redirect_to edit_dashboard_path(@dep)
-							else
-								render 'edit'
-							end
-						else
-							flash[:notice] = "Can't assign shift"
-						end
-					# create data Plan if don't have anything in database
-					else
-						@assign = Plan.create(time_plan)
-						user = User.find(uID.to_i)
-						user.plans << @assign
-						if @assign.save
-							#if creation is successful, show up 'successful' message
-							flash[:notice] = "Assign shift successfully"
-							#redirect_to edit_dashboard_path(@dep)
-						else
-							render 'edit'
 						end
 					end
+					redirect_to edit_dashboard_path(@dep)
 				end
-				redirect_to edit_dashboard_path(@dep)
+			else
+				flash[:notice] = "Date should be now or in the future."
 			end
 		end
 
@@ -128,6 +149,32 @@ class DashboardsController < ApplicationController
 			@status = true
 		end
 
+	end
+
+
+	def check_worker(user)
+
+		num_now = 0
+		day = Time.current.strftime("%Y-%m-%d")
+		user.each do |worker| 
+			all_actual = worker.actuals.find_by_date(day)
+			if all_actual != nil && all_actual.time_in != nil && all_actual.time_out == nil
+				num_now += 1
+			end
+		end	
+		return num_now
+	end
+
+	def check_all(user)
+		num_plan = 0
+		day = Time.current.strftime("%Y-%m-%d")
+		user.each do |worker| 
+			all_plan = worker.plans.find_by_date(day)
+			if all_plan != nil 
+				num_plan += 1
+			end
+		end	
+		return num_plan
 	end
 
 end

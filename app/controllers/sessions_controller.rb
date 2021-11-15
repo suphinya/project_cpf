@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
 	  		session[:user_id] = @user.id
 	  		if @user.position == "leader"
 	  			redirect_to dashboards_path
+	  		elsif @user.position == "admin"
+	  			redirect_to admin_path
 	  		else 
 	  			redirect_to schedule_path
 	  		end
