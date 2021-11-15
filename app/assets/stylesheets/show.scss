@@ -19,7 +19,9 @@ body {
     margin-left: auto;
     margin-right: auto;
     border-left: 0.25rem solid #36b9cc!important;
-    
+    &:hover{
+        box-shadow: 5px 0 5px 0 #bbbbbb;
+    }
 }
 
 #date_work_date_work {
@@ -37,7 +39,7 @@ body {
 }
 
 .select-time-btn{
-    background-color: #2b5843;
+    background-color: #36b9cc;
     color: white;
     font-weight: bold;
     font-size: 1em;
@@ -51,7 +53,7 @@ body {
     font-family: 'IBM Plex Sans Thai', sans-serif;
   
     &:hover {
-      background: #1d3a2c;
+      background: #167d8d;
       color: white;
     }   
 }

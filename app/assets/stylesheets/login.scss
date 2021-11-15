@@ -16,7 +16,7 @@ body {
 }
 
 .login-btn {
-  background-color: #2b5843;
+  background-color: #39966a;
   color: white;
   font-weight: bold;
   font-size: 1.3em;
@@ -31,7 +31,7 @@ body {
   margin-bottom: 3em;
 
   &:hover {
-    background: #1d3a2c;
+    background: #246e4c;
     color: white;
   }
 }
@@ -118,6 +118,7 @@ body {
     background-color: #dddddd;
     border-radius: 100px;
     border-color: #dddddd;
+    border: none;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-size: 18px;
     font-weight: bold;
@@ -131,6 +132,7 @@ body {
     background-color: #dddddd;
     border-radius: 100px;
     border-color: #dddddd;
+    border: none;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-size: 18px;
     padding: 12px;
