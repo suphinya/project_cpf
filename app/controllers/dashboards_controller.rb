@@ -9,13 +9,31 @@ class DashboardsController < ApplicationController
 		user2 = User.where(:department1 => depart2 , :position => 'employee')
 		user3 = User.where(:department1 => depart3 , :position => 'employee')
 		
-		@now1 = check_worker(user1).to_s
-		@now2 = check_worker(user2).to_s
-		@now3 = check_worker(user3).to_s
+		@now1 = check_worker(user1)
+		@now2 = check_worker(user2)
+		@now3 = check_worker(user3)
 
-		@plan1 = check_all(user1).to_s
-		@plan2 = check_all(user2).to_s
-		@plan3 = check_all(user3).to_s
+		@plan1 = check_all(user1)
+		@plan2 = check_all(user2)
+		@plan3 = check_all(user3)
+
+		if @now1 != 0
+			@per1 = (@now1 * 100 / @plan1) 
+		else
+			@per1 = 0
+		end
+
+		if @now2 != 0
+			@per2 = (@now2 * 100 / @plan2) 
+		else
+			@per2 = 0
+		end
+
+		if @now3 != 0
+			@per3 = (@now3 * 100 / @plan3)
+		else
+			@per3 = 0
+		end
 
 	end
 
