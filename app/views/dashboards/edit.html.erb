@@ -18,9 +18,10 @@
         Time <%= select_tag :time, options_for_select(@all_time, @default_select)  %>
         OT <%= text_field :emp, :OT %>
         <%= submit_tag "Submit" , :name=>'ass_button' , :class => "summit-plan"%>
+        <%= submit_tag "Delete" , :name=>'delete' %>
       </div>
       </div>
-
+      <%= @a %>
   <div class="table-container">
     <table>
       <tr>

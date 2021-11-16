@@ -17,19 +17,19 @@ class DashboardsController < ApplicationController
 		@plan2 = check_all(user2)
 		@plan3 = check_all(user3)
 
-		if @now1 != 0
+		if @now1 != 0 && @plan1 !=0
 			@per1 = (@now1 * 100 / @plan1) 
 		else
 			@per1 = 0
 		end
 
-		if @now2 != 0
+		if @now2 != 0 && @plan1 !=0
 			@per2 = (@now2 * 100 / @plan2) 
 		else
 			@per2 = 0
 		end
 
-		if @now3 != 0
+		if @now3 != 0 && @plan1 !=0
 			@per3 = (@now3 * 100 / @plan3)
 		else
 			@per3 = 0
@@ -139,6 +139,22 @@ class DashboardsController < ApplicationController
 		if (params.key?("choose"))
 			@calender = params[:emp][:date]
 			@status = true
+		end
+
+		if (params.key?("delete"))
+			list_userid = params[:select_user]
+			date_plan = params[:emp][:date].to_time
+			today = Time.current.strftime("%Y-%m-%d").to_time
+			if list_userid != nil && date_plan >= today
+				list_userid.each do |user|
+					actual = Actual.find_by(:user_id => user , :date => date_plan)
+					plan = Plan.find_by(:date => date_plan , :user_id => user)
+					if plan != nil && actual == nil
+						plan.destroy
+					end
+				end
+			end
+
 		end
 
 	end
