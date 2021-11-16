@@ -54,7 +54,7 @@ h1.title {
 
 div#main {
   margin: 0;
-  padding: 0 20px 20px;
+  padding: 0 20px 0 20px;
 }
 
 .table-container{
@@ -67,6 +67,7 @@ div#main {
   margin-left: auto;
   margin-right: auto;
   font-size: .9em;
+  overflow: hidden;
 }
 
 table {
@@ -80,11 +81,15 @@ table th {
   border: 2px solid white;
   font-weight: bold;
   background-color: #63C898;
+  width: 12ch;
+
 }
 
 table th, table td {
   padding: 4px;
   text-align: left;
+
+
 }
 
 tr:hover {
@@ -323,7 +328,7 @@ nav {
   }
 }
 
-@media only screen and (min-width: 1080px) {
+@media only screen and (min-width: 819px) {
   .container {
       width: 1080px;
       margin: 0 auto;
