@@ -7,9 +7,6 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :surname
       t.string :position
       t.string :department1
-      t.string :department2
-      t.string :department3
-
       t.timestamps
     end
   end

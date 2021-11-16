@@ -1,0 +1,15 @@
+
+<h1> Create User </h1>
+
+<%= form_tag new_admin_path , :method => :get do %>
+	Username : <%= text_field("username", "username") %> <br>
+	Password : <%= text_field("password", "password") %> <br>
+	Name : <%= text_field("name", "name") %> <br>
+	Surname : <%= text_field("surname", "surname") %> <br>
+	position : <%= select_tag 'position', options_for_select(["leader","employee"])%> <br>
+	Department : <%= text_field("department1", "department1") %> <br>
+	<%= submit_tag 'Submit' , :name => "submit" %> <br>
+<% end %>
+
+
+

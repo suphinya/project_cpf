@@ -1,40 +1,8 @@
 class DashboardsController < ApplicationController
 
 	def index
-		depart1 = current_user.department1
-		depart2 = current_user.department2
-		depart3 = current_user.department3
-
-		user1 = User.where(:department1 => depart1 , :position => 'employee')
-		user2 = User.where(:department1 => depart2 , :position => 'employee')
-		user3 = User.where(:department1 => depart3 , :position => 'employee')
-		
-		@now1 = check_worker(user1)
-		@now2 = check_worker(user2)
-		@now3 = check_worker(user3)
-
-		@plan1 = check_all(user1)
-		@plan2 = check_all(user2)
-		@plan3 = check_all(user3)
-
-		if @now1 != 0 && @plan1 !=0
-			@per1 = (@now1 * 100 / @plan1) 
-		else
-			@per1 = 0
-		end
-
-		if @now2 != 0 && @plan1 !=0
-			@per2 = (@now2 * 100 / @plan2) 
-		else
-			@per2 = 0
-		end
-
-		if @now3 != 0 && @plan1 !=0
-			@per3 = (@now3 * 100 / @plan3)
-		else
-			@per3 = 0
-		end
-
+		@leader = current_user
+		@all_depart = check_department(@leader.id)
 	end
 
 	def time_plan
@@ -185,30 +153,21 @@ class DashboardsController < ApplicationController
 
 	end
 
+	def check_department(leader_id)
+		user = User.find(leader_id)
+		department = user.department1
+		list_department = []
+		department["["] = "" 
+		department["]"] = ""
+		n_string = department.split(",")
 
-	def check_worker(user)
-
-		num_now = 0
-		day = Time.current.strftime("%Y-%m-%d")
-		user.each do |worker| 
-			all_actual = worker.actuals.find_by_date(day)
-			if all_actual != nil && all_actual.time_in != nil && all_actual.time_out == nil
-				num_now += 1
-			end
-		end	
-		return num_now
-	end
-
-	def check_all(user)
-		num_plan = 0
-		day = Time.current.strftime("%Y-%m-%d")
-		user.each do |worker| 
-			all_plan = worker.plans.find_by_date(day)
-			if all_plan != nil 
-				num_plan += 1
-			end
-		end	
-		return num_plan
+		n_string.each do |all|
+			all.sub!(" ","")
+    		all.gsub!('"',"")
+    		list_department.append(all)
+    
+    	end
+		return list_department
 	end
 
 end

@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 	  		if @user.position == "leader"
 	  			redirect_to dashboards_path
 	  		elsif @user.position == "admin"
-	  			redirect_to admin_path
+	  			redirect_to admin_index_path
 	  		else 
 	  			redirect_to schedule_path
 	  		end

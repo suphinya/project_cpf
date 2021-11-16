@@ -8,17 +8,17 @@
 
 all_humen = [
 	{:username => '00001' , :password_digest => '00001' , :name => 'suphinya' , :surname => 'wu' , :position => 'leader' , 
-		:department1 => 'ไก่ตกราว' , :department2 => 'ถอนขนไก่' , :department3 => 'เชือดไก่'},
+		:department1 => ['ไก่ตกราว','ไก่ตกบันได','ไก่กุ๊กกุ๊ก'] },
 	{:username => '11111' , :password_digest => '11111' , :name => 'onpinya' , :surname => 'phok' , :position => 'employee' , 
-		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''},
+		:department1 => 'ไก่ตกราว' },
 	{:username => '22222' , :password_digest => '22222' , :name => 'donyapa' , :surname => 'praman' , :position => 'employee' , 
-		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''},
+		:department1 => 'ไก่ตกราว' },
 	{:username => '33333' , :password_digest => '33333' , :name => 'chanda' , :surname => 'soon' , :position => 'employee' , 
-		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''},
+		:department1 => 'ไก่ตกราว' },
 	{:username => '44444' , :password_digest => '44444' , :name => 'thatphoom' , :surname => 'pao' , :position => 'employee' , 
-		:department1 => 'ไก่ตกราว' , :department2 => '' , :department3 => ''},
+		:department1 => 'ไก่ตกราว' },
 	{:username => 'admin' , :password_digest => 'admin' , :name => 'admin' , :surname => 'admin' , :position => 'admin' , 
-		:department1 => '' , :department2 => '' , :department3 => ''}
+		:department1 => '' }
 ]
 
 password = ['00001','11111','22222','33333','44444','admin']

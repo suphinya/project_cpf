@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(version: 2021_11_09_113309) do
     t.string "surname"
     t.string "position"
     t.string "department1"
-    t.string "department2"
-    t.string "department3"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
