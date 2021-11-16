@@ -8,9 +8,38 @@ class EmployeesController < ApplicationController
 		userid = current_user.id
 		user = User.find(userid)
 		plan = Plan.find_by(:user_id => userid , :date => @date)
-		@all_plans = Plan.where(:user_id => userid).order("date DESC")
-
 		check_actual = Actual.find_by(:date => @date , :user_id => userid)
+
+		######################## Show up plan's today #########################
+		if plan == nil
+			@plan_worker_today = false
+		else
+			@plan_worker_today = true
+			@plan_today = plan
+			if check_actual == nil
+				@actual_worker_today = false
+			else
+				@actual_worker_today = true
+				@actual_today = check_actual
+			end
+		end
+
+		######################## Monthly's plan ##############################
+
+		@all_plans = Plan.where(:user_id => userid) # .order("date DESC")
+		@select_month = ['January', 'February', 'March', 'April', 'May', 'June', 
+							'July', 'August', 'September', 'October', 'November', 'December']
+		@select_month_default = @time.strftime("%B")
+		@filter_month = false
+		if (params.key?("month_choose"))
+			@filter_month = true
+			@select_month_default = params[:monthly]
+			@first_day_month = '1 ' + @select_month_default + ' ' + @time.year.to_s
+			last_day = Time.days_in_month(month=@select_month_default.to_time.month, year=@time.year)
+			@last_day_month = last_day.to_s + ' ' + @select_month_default + ' ' + @time.year.to_s
+		end
+
+		###################### Check in and Check out ###########################
 
 		if (params.key?("save_in")) && plan != nil
 			if check_actual == nil 
