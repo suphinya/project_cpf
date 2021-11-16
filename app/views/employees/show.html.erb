@@ -22,14 +22,14 @@
         <td><%= plan.date.strftime("%Y-%m-%d") %></td>
         <% if check_actual != nil %>
           <% if check_actual.time_in == nil %>
-            <td><%= "- / " + (plan.time_in + (3600*12)).strftime("%H:%M:%S") %></td>
+            <td><%= "- / " + (plan.time_in + (3600*12)).strftime("%H:%M") %></td>
           <% else %>
-            <td><%= check_actual.time_in.strftime("%H:%M:%S") + " / " + (plan.time_in + (3600*12)).strftime("%H:%M:%S") %></td>
+            <td><%= check_actual.time_in.strftime("%H:%M") + " / " + (plan.time_in + (3600*12)).strftime("%H:%M") %></td>
           <% end %>
           <% if check_actual.time_out == nil %>
-            <td><%= "- / " + (plan.time_out + (3600*12)).strftime("%H:%M:%S") %></td>
+            <td><%= "- / " + (plan.time_out + (3600*12)).strftime("%H:%M") %></td>
           <% else %>
-            <td><%= check_actual.time_out.strftime("%H:%M:%S") + " / " + (plan.time_out + (3600*12)).strftime("%H:%M:%S") %></td>
+            <td><%= check_actual.time_out.strftime("%H:%M") + " / " + (plan.time_out + (3600*12)).strftime("%H:%M") %></td>
           <% end %>
           <% if check_actual.OT == nil %>
             <td><%= "- / " + plan.OT.to_s %></td>
@@ -38,8 +38,8 @@
           <% end %>
         <% else %>
           <% if plan != nil %>
-            <td> <%= '- / ' + (plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
-            <td> <%= '- / ' + (plan.time_out + (3600*12)).strftime('%H:%M:%S') %></td>
+            <td> <%= '- / ' + (plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+            <td> <%= '- / ' + (plan.time_out + (3600*12)).strftime('%H:%M') %></td>
             <td> <%= '- / ' + plan.OT.to_s %></td>
           <% else %>
             <td> - </td>
