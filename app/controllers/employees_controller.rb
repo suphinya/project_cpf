@@ -49,6 +49,8 @@ class EmployeesController < ApplicationController
 					check_one.update(:OT => @ot )
 					flash[:notice] = "check out success"
 
+				else
+					flash[:notice] = "You haven't check in before !"
 				end
 
 			else

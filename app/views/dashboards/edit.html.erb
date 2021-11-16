@@ -8,9 +8,9 @@
         <% today = Time.current.strftime("%Y-%m-%d") %>
         Date
         <% if @status == true %>
-          <%= date_field(:emp, :date, :value => @calender, :min => today ) %>
+          <%= date_field(:emp, :date, :value => @calender ) %>
         <% else %>
-          <%= date_field(:emp, :date, :value => today, :min => today ) %>
+          <%= date_field(:emp, :date, :value => today ) %>
         <% end %>
         <%= submit_tag 'select' , :name => "choose", :class => "section-select-btn" %><br>
       </div>
@@ -41,8 +41,8 @@
         <td><%= users.name.to_s+" "+users.surname.to_s %></td>
         <% if user_plan != nil  %>
           <% if user_plan.date != nil  %>
-            <td><%= (user_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
-            <td><%= (user_plan.time_out + (3600*12)).strftime('%H:%M:%S') %></td>
+            <td><%= (user_plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+            <td><%= (user_plan.time_out + (3600*12)).strftime('%H:%M') %></td>
             <td><%= user_plan.OT.to_s %></td>
           <% else %>
             <td> - </td>

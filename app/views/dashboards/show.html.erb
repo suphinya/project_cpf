@@ -118,15 +118,15 @@
 					<td><%= worker.name + " " + worker.surname %></td>
 
 					<% if worker_all_actuals.time_in != nil  %>
-						<td><%= worker_all_actuals.time_in.strftime('%H:%M:%S') + '/' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
+						<td><%= worker_all_actuals.time_in.strftime('%H:%M') + '/' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %></td>
 					<% else %>
-						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %> </td>
+						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %> </td>
 					<% end %>
 
 					<% if worker_all_actuals.time_out != nil %>
-						<td><%= worker_all_actuals.time_out.strftime('%H:%M:%S') + '/' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S')%></td>
+						<td><%= worker_all_actuals.time_out.strftime('%H:%M') + '/' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M')%></td>
 					<% else %>
-						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S') %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M') %></td>
 					<% end %>
 
 					<% if worker_all_actuals.OT != nil %>
@@ -138,8 +138,8 @@
 				<% else %>
 					<% if worker_all_plan != nil %>
 						<td><%= worker.name + " " + worker.surname %></td>
-						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M:%S') %></td>
-						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M:%S') %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M') %></td>
 						<td> <%= '- / ' + worker_all_plan.OT.to_s %></td>
 
 					<% end %>
