@@ -99,6 +99,8 @@ class DashboardsController < ApplicationController
 					end
 				
 				end
+			else
+				flash[:notice] = "Date should be sort"
 				redirect_to edit_dashboard_path(@dep)
 			end
 		end
