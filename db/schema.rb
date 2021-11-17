@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_113309) do
     t.datetime "date"
     t.datetime "time_in"
     t.datetime "time_out"
-    t.integer "OT"
+    t.float "OT"
     t.integer "user_id"
     t.integer "plan_id"
     t.datetime "created_at", precision: 6, null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_113309) do
     t.datetime "date"
     t.datetime "time_in"
     t.datetime "time_out"
-    t.integer "OT"
+    t.float "OT"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

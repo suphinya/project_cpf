@@ -4,7 +4,7 @@ class CreateActuals < ActiveRecord::Migration[6.0]
       t.datetime :date
       t.datetime :time_in
       t.datetime :time_out
-      t.integer :OT
+      t.float :OT
       t.references :user
       t.references :plan
       t.timestamps

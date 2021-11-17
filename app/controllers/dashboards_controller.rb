@@ -21,6 +21,8 @@ class DashboardsController < ApplicationController
 		end
 		if params[:emp][:OT] == ""
 			data[:OT] = 0
+		else
+			data[:OT] = (params[:emp][:OT].to_f).ceil(1)	
 		end
 		return data
 	end
@@ -162,7 +164,7 @@ class DashboardsController < ApplicationController
 		n_string = department.split(",")
 
 		n_string.each do |all|
-			all.sub!(" ","")
+			all.gsub!(" ","")
     		all.gsub!('"',"")
     		list_department.append(all)
     
