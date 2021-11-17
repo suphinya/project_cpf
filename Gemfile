@@ -52,3 +52,7 @@ gem "guard-rspec", "~> 4.7"
 gem "rails-controller-testing", "~> 1.0"
 gem "factory_girl_rails", "~> 4.9"
 gem 'font-awesome-rails'
+gem "thread_safe", "~> 0.2.0"
+gem 'webdrivers'
+gem 'capybara'
+gem 'selenium-webdriver'
