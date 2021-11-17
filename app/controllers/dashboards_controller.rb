@@ -52,7 +52,6 @@ class DashboardsController < ApplicationController
 
 				for i in 0..dectime do 
 					time_loop = ((@date_in.to_time) + (i*(24*3600)))
-					@x = i
 					date_loop = time_loop.strftime("%Y-%m-%d")
 					new_time_out = (date_loop +' '+(params[:time].split[2])).to_time
 					new_time_in = (date_loop +' '+(params[:time].split[0])).to_time
@@ -122,14 +121,25 @@ class DashboardsController < ApplicationController
 
 		if (params.key?("delete"))
 			list_userid = params[:select_user]
-			date_plan = params[:emp][:date].to_time
-			today = Time.current.strftime("%Y-%m-%d").to_time
-			if list_userid != nil && date_plan >= today
-				list_userid.each do |user|
-					actual = Actual.find_by(:user_id => user , :date => date_plan)
-					plan = Plan.find_by(:date => date_plan , :user_id => user)
-					if plan != nil && actual == nil
-						plan.destroy
+
+			date_in = params[:date_in].values[0]
+			date_out = params[:date_out].values[0]
+
+			time1 = date_in.to_time
+			time2 = date_out.to_time
+
+			dectime = (time2-time1) /(24*3600)
+
+			for i in 0..dectime do
+				day_loop = ((date_in.to_time) + (i*(24*3600)))
+
+				if list_userid != nil 
+					list_userid.each do |user|
+						actual = Actual.find_by(:user_id => user , :date => day_loop)
+						plan = Plan.find_by(:date => day_loop , :user_id => user)
+						if plan != nil && actual == nil
+							plan.destroy
+						end
 					end
 				end
 			end
