@@ -33,12 +33,17 @@ class DashboardsController < ApplicationController
 		@users = User.where(:department1 => @dep)
 		@employee = @users.select{|user| user.position=="employee"}
 		
+		@status = false
+		if (params.key?('choose'))
+			@status = true
+			@date_in = params[:date_in].values[0]
+		end
 		# click to assign shift
 		if (params.key?('ass_button'))
-			#@calender = params[:emp][:date]
 
 			@date_in = params[:date_in].values[0]
 			@date_out = params[:date_out].values[0]
+			
 
 			if @date_out.to_time >= @date_in.to_time
 				# list of user id (tick checkbox)
@@ -92,11 +97,9 @@ class DashboardsController < ApplicationController
 						end
 						
 					end
+				
 				end
 				redirect_to edit_dashboard_path(@dep)
-
-			else
-				flash[:notice] = "Date should be sort"
 			end
 		end
 
@@ -112,12 +115,7 @@ class DashboardsController < ApplicationController
 
 		@default_select = "00:00 - 09:00"
 
-		@status = false
 		
-		if (params.key?("choose"))
-			@calender = params[:emp][:date]
-			@status = true
-		end
 
 		if (params.key?("delete"))
 			list_userid = params[:select_user]

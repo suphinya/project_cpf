@@ -3,26 +3,21 @@
 
     <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
       <div class="pick-time">
-      <div class="section-select-container">
-        <% today = Time.current.strftime("%Y-%m-%d") %>
-        Date
-        <% if @status == true %>
-          <%= date_field(:emp, :date, :value => @calender ) %>
-        <% else %>
-          <%= date_field(:emp, :date, :value => today ) %>
-        <% end %>
-        <%= submit_tag 'select' , :name => "choose", :class => "section-select-btn" %><br>
-      </div>
-
+      
 
       <div class="section-select-container">
         Date assign 
-        <%= date_field("date_in","date_in" , :value => @today ,:min => @today) %>
+
+        <% if @status == true %>
+          <%= date_field("date_in","date_in" , :value => @date_in ,:min => @today) %>
+        <% else %>
+          <%= date_field("date_in","date_in" , :value => @today ,:min => @today) %>
+        <% end %>
+        <%= submit_tag 'select' , :name => "choose" %>
         to 
         <%= date_field("date_out","date_out", :value => @today,:min => @today) %>
+
       </div>
-
-
 
       <div class="time-plan-container">
 
@@ -32,7 +27,7 @@
         <%= submit_tag "Delete" , :name=>'delete' %>
       </div>
       </div>
-     
+
   <div class="table-container">
     <table>
       <tr>
@@ -44,9 +39,9 @@
       </tr>
       <% @employee.each do |users| %>
       <% if @status == false %>
-          <% user_plan = users.plans.find_by_date(today) %>
+          <% user_plan = users.plans.find_by_date(@today) %>
       <% elsif @status == true %>
-          <% user_plan = users.plans.find_by_date(@calender) %>
+          <% user_plan = users.plans.find_by_date(@date_in) %>
       <% end %>
       <tr>
         <td><%= check_box_tag "select_user[]", users.id %></td>
