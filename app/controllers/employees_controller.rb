@@ -37,6 +37,10 @@ class EmployeesController < ApplicationController
 			@first_day_month = '1 ' + @select_month_default + ' ' + @time.year.to_s
 			last_day = Time.days_in_month(month=@select_month_default.to_time.month, year=@time.year)
 			@last_day_month = last_day.to_s + ' ' + @select_month_default + ' ' + @time.year.to_s
+		else
+			@first_day_month = '1 ' + @select_month_default + ' ' + @time.year.to_s
+			last_day = Time.days_in_month(month=@select_month_default.to_time.month, year=@time.year)
+			@last_day_month = last_day.to_s + ' ' + @select_month_default + ' ' + @time.year.to_s
 		end
 
 		###################### Check in and Check out ###########################
