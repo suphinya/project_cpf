@@ -37,7 +37,7 @@
           <% if @actual_today.OT == nil %>
             <td><%= '- / ' + @plan_today.OT.to_s %></td>
           <% else %>
-            <td><%= ((@actual_today.OT).ceil(1)).to_s + ' / ' + @plan_today.OT.to_s %></td>
+            <td><%= (@actual_today.OT).to_s + ' / ' + @plan_today.OT.to_s %></td>
           <% end %>
 
         <% else %>
@@ -88,7 +88,7 @@
               <% if check_actual.OT == nil %>
                 <td><%= "- / " + plan.OT.to_s %></td>
               <% else %>
-                <td><%= ((check_actual.OT).ceil(1)).to_s + " / " + plan.OT.to_s %></td>
+                <td><%= (check_actual.OT).to_s + " / " + plan.OT.to_s %></td>
               <% end %>
             <% else %>
               <% if plan != nil %>

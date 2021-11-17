@@ -62,7 +62,7 @@ class EmployeesController < ApplicationController
 				act_out = check_actual.time_out
 				plan_out = plan.time_out
 				@ot = (act_out-plan_out+(12*3600))/(60*60)
-				check_actual.update(:OT => @ot )
+				check_actual.update(:OT => @ot.ceil(1) )
 				flash[:notice] = "check out success"
 
 			elsif check_actual == nil 
@@ -75,7 +75,7 @@ class EmployeesController < ApplicationController
 					
 					plan_out = plan_one.time_out
 					@ot = (act_out-plan_out+(12*3600))/(60*60)
-					check_one.update(:OT => @ot )
+					check_one.update(:OT => @ot.ceil(1) )
 					flash[:notice] = "check out success"
 
 				else
@@ -102,7 +102,7 @@ class EmployeesController < ApplicationController
 					
 				plan_out = plan_two.time_out
 				@ot = (act_out-plan_out+(12*3600))/(60*60)
-				check_two.update(:OT => @ot )
+				check_two.update(:OT => @ot.ceil(1) )
 				flash[:notice] = "check out success"
 				redirect_to schedule_path
 				

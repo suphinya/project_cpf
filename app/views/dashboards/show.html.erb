@@ -130,7 +130,7 @@
 					<% end %>
 
 					<% if worker_all_actuals.OT != nil %>
-						<td><%= ((worker_all_actuals.OT).ceil(1)).to_s + '/' + worker_all_plan.OT.to_s %></td>
+						<td><%= worker_all_actuals.OT.to_s + '/' + worker_all_plan.OT.to_s %></td>
 					<% else %>
 						<td> <%= '- / ' + worker_all_plan.OT.to_s %></td>
 					<% end %>
