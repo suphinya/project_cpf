@@ -1,0 +1,67 @@
+
+<h1> All Users </h1>
+
+<div id="create-user-btn">
+	<%= link_to "Create New User", new_admin_path %> <br>
+</div>
+
+
+<h2> All Leaders</h2>
+<table>
+	<thead>
+		<tr>
+			<th> ID </th>
+			<th> Username </th>
+			<th> ชื่อ-นามสกุล </th>
+			<th> แผนกที่ควบคุม </th>
+			<th> แก้ไขข้อมูล </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @leader_users.each do |leader| %>
+		<tr>
+			<td><%= leader.id %></td>
+			<td><%= leader.username %></td>
+			<td><%= leader.name + ' ' + leader.surname %></td>
+
+			<% user = User.find(leader.id) %>
+			<% department = user.department1 %>
+			<% list_department = [] %>
+			<% department["["] = ""  %>
+			<% department["]"] = "" %>
+			<% department.gsub!('"',"") %>
+			<td> <%= department %> </td>
+			<td> <%= link_to "Edit" , edit_admin_path(leader.id) %>
+			<%=link_to "delete" , admin_path(leader.id), :method => :delete %> </td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<hr>
+
+
+<h2> All Employees </h2>
+<table>
+	<thead>
+		<tr>
+			<th> ID </th>
+			<th> Username </th>
+			<th> ชื่อ-นามสกุล </th>
+			<th> แผนก </th>
+			<th> แก้ไขข้อมูล </th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @worker_users.each do |worker| %>
+		<tr>
+			<td><%= worker.id %></td>
+			<td><%= worker.username %></td>
+			<td><%= worker.name + ' ' + worker.surname %></td>
+			<td><%= worker.department1 %></td>
+			<td> <%= link_to "Edit" , edit_admin_path(worker.id) %>
+			<%=link_to "delete" , admin_path(worker.id), :method => :delete %> </td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

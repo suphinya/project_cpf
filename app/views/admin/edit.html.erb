@@ -1,0 +1,23 @@
+<h1> Edit Information </h1>
+
+<%= form_tag admin_path , :method => :put do %>
+	Username : <%= text_field("username", "username" , :value => @user.username ) %> <br>
+	Password : <%= text_field("password", "password" , :value => "new password") %> <br>
+	Name : <%= text_field("name", "name", :value => @user.name) %> <br>
+	Surname : <%= text_field("surname", "surname",:value => @user.surname) %> <br>
+	position : <%= select_tag 'position', options_for_select(["leader","employee"],@user.position)%> <br>
+
+	<% if @user.position == "leader" %>
+		<% department = @user.department1 %>
+		<% list_department = [] %>
+		<% department["["] = ""  %>
+		<% department["]"] = "" %>
+		<% department.gsub!('"',"") %>
+		<% department %> 
+	<% else %>
+		<% department = @user.department1 %>
+	<% end %>
+
+	Department : <%= text_field("department1", "department1" , :value => department) %> <br>
+	<%= submit_tag 'Submit' , :name => "submit" %> <br>
+<% end %>

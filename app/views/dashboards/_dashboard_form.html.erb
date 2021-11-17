@@ -1,0 +1,49 @@
+
+
+<% @all_depart.each do |department|%>
+
+    <% num_now = 0 %>
+    <% num_plan = 0 %>
+    <% day = Time.current.strftime("%Y-%m-%d") %>
+    <% all_worker = User.where(:department1 => department , :position => "employee") %>
+
+    <% all_worker.each do |worker| %>
+
+        <% all_plan = worker.plans.find_by_date(day) %>
+            <% if all_plan != nil %>
+                <% num_plan += 1 %>
+            <% end %>
+
+        <% all_actual = worker.actuals.find_by_date(day) %>
+            <% if all_actual != nil && all_actual.time_in != nil && all_actual.time_out == nil %>
+                <% num_now += 1 %>
+            <% end %>
+    <% end %>
+
+    <% if num_now != 0 && num_plan !=0 %>
+        <% percent = (num_now * 100 / num_plan) %> 
+    <% else %>
+        <% percent = 0 %> 
+    <% end %>
+
+
+    <div class="item-container">
+        <div class="title-department">
+            <%= link_to department ,  dashboard_path(department), :class => "title-department-tag"  %>
+        </div>
+        <div class="percent-container">
+        <p> <%=  num_now.to_s + ' / ' + num_plan.to_s %> </p>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <%= percent%>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        </div>
+        <div class="actual-btn">
+            <%= link_to ('<i class="fa fa-clock-o" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  dashboard_path(department)  %>
+           
+        </div>
+        <div class="plan-btn">
+            <%= link_to ('<i class="fa fa-pencil" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  edit_dashboard_path(department)  %>
+        </div>
+    </div>
+
+<% end %>

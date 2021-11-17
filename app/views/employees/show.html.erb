@@ -1,0 +1,142 @@
+
+<body>
+<h1> schedule ตารางงาน <%= current_user.name %> </h1>
+
+<div class="table-container">
+<%= form_tag schedule_path , :method => :get do %>
+  <%= button_tag "Time in", :type => "save_in" , :name => "save_in" %>
+  <%= button_tag "Time out", :type => "save_out" , :name => "save_out" %>
+<% end %>
+
+<h2>Today's Plan</h2>
+<table>
+  <thead>
+    <th> วันที่ </th>
+    <th> เวลาเข้างาน </th>
+    <th> เวลาออกงาน </th>
+    <th> OT </th>
+  </thead>
+  <tbody>
+    <tr>
+      <% if @plan_worker_today == true %>
+        <td><%= @plan_today.date.strftime("%Y-%m-%d") %></td>
+        <% if @actual_worker_today == true %>
+
+          <% if @actual_today.time_in == nil %>
+            <td><%= '- / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></td>
+          <% else %>
+            <td><%= (@actual_today.time_in).strftime("%H:%M") + ' / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></td>
+          <% end %>
+
+          <% if @actual_today.time_out == nil %>
+            <td><%= '- / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></td>
+          <% else %>
+            <td><%= (@actual_today.time_out).strftime("%H:%M") + ' / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></td>
+          <% end %>
+
+          <% if @actual_today.OT == nil %>
+            <td><%= '- / ' + @plan_today.OT.to_s %></td>
+          <% else %>
+            <td><%= (@actual_today.OT).to_s + ' / ' + @plan_today.OT.to_s %></td>
+          <% end %>
+
+        <% else %>
+          <td><%= '- / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></td>
+          <td><%= '- / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></td>
+          <td><%= '- / ' + @plan_today.OT.to_s %></td>
+        <% end %>
+      <% else %>
+        <td colspan="4"> You don't have any plans for today! </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>Monthly's Plan</h2>
+<%= form_tag(schedule_path, method: 'get') do %>
+  Filter Month : <%= select_tag :monthly, options_for_select(@select_month, @select_month_default) %>
+  <%= submit_tag "Choose" , :name=>'month_choose' %>
+<% end %>
+
+<table >
+  <thead>
+    <th> วันที่ </th>
+    <th> เวลาเข้างาน </th>
+    <th> เวลาออกงาน </th>
+    <th> OT </th>
+  </thead>
+  <tbody>
+    <% @all_plans.each do |plan| %>
+      <tr>
+        <% if @filter_month == true %>
+          <% if (plan.date >= @first_day_month) and (plan.date <= @last_day_month) %>
+            <% check_actual = Actual.find_by_plan_id(plan.id) %>
+            <td><%= plan.date.strftime("%Y-%m-%d") %></td>
+            <% if check_actual != nil %>
+              <% if check_actual.time_in == nil %>
+                <td><%= "- / " + (plan.time_in + (3600*12)).strftime("%H:%M") %></td>
+              <% else %>
+                <td><%= check_actual.time_in.strftime("%H:%M") + " / " + (plan.time_in + (3600*12)).strftime("%H:%M") %></td>
+              <% end %>
+              <% if check_actual.time_out == nil %>
+                <td><%= "- / " + (plan.time_out + (3600*12)).strftime("%H:%M") %></td>
+              <% else %>
+                <td><%= check_actual.time_out.strftime("%H:%M") + " / " + (plan.time_out + (3600*12)).strftime("%H:%M") %></td>
+              <% end %>
+              <% if check_actual.OT == nil %>
+                <td><%= "- / " + plan.OT.to_s %></td>
+              <% else %>
+                <td><%= (check_actual.OT).to_s + " / " + plan.OT.to_s %></td>
+              <% end %>
+            <% else %>
+              <% if plan != nil %>
+                <td> <%= '- / ' + (plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+                <td> <%= '- / ' + (plan.time_out + (3600*12)).strftime('%H:%M') %></td>
+                <td> <%= '- / ' + plan.OT.to_s %></td>
+              <% else %>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% if (plan.date >= @first_day_month) and (plan.date <= @last_day_month) %>
+            <% check_actual = Actual.find_by_plan_id(plan.id) %>
+            <td><%= plan.date.strftime("%Y-%m-%d") %></td>
+            <% if check_actual != nil %>
+              <% if check_actual.time_in == nil %>
+                <td><%= "- / " + (plan.time_in + (3600*12)).strftime("%H:%M") %></td>
+              <% else %>
+                <td><%= check_actual.time_in.strftime("%H:%M") + " / " + (plan.time_in + (3600*12)).strftime("%H:%M") %></td>
+              <% end %>
+              <% if check_actual.time_out == nil %>
+                <td><%= "- / " + (plan.time_out + (3600*12)).strftime("%H:%M") %></td>
+              <% else %>
+                <td><%= check_actual.time_out.strftime("%H:%M") + " / " + (plan.time_out + (3600*12)).strftime("%H:%M") %></td>
+              <% end %>
+              <% if check_actual.OT == nil %>
+                <td><%= "- / " + plan.OT.to_s %></td>
+              <% else %>
+                <td><%= (check_actual.OT).to_s + " / " + plan.OT.to_s %></td>
+              <% end %>
+            <% else %>
+              <% if plan != nil %>
+                <td> <%= '- / ' + (plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+                <td> <%= '- / ' + (plan.time_out + (3600*12)).strftime('%H:%M') %></td>
+                <td> <%= '- / ' + plan.OT.to_s %></td>
+              <% else %>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
