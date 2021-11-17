@@ -139,6 +139,9 @@ class DashboardsController < ApplicationController
 						plan = Plan.find_by(:date => day_loop , :user_id => user)
 						if plan != nil && actual == nil
 							plan.destroy
+							flash[:notice] = "Delete plan success"
+						else
+							flash[:notice] = "Error! Please check you plan & actual"
 						end
 					end
 				end
