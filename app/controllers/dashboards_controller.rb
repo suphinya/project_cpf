@@ -46,39 +46,29 @@ class DashboardsController < ApplicationController
 				end
 				if @uID_list
 					@uID_list.each do |uID|
-						@all_user_plan = Plan.find_by_user_id(uID) # get database
+						@all_user_plan = Plan.find_by(:user_id => uID , :date => @calender) # get database
+						@all_user_actual = Actual.find_by(:user_id => uID , :date => @calender)
 						if @all_user_plan != nil
-							# insert each data to Plan database
-							if (@all_user_plan.time_in > new_time_out && @all_user_plan.time_in > new_time_in) || (@all_user_plan.time_out < new_time_in && @all_user_plan.time_out < new_time_out)
-								@assign = Plan.create(time_plan)
-								user = User.find(uID.to_i)
-								user.plans << @assign
-								if @assign.save
-									#if creation is successful, show up 'successful' message
-									flash[:notice] = "Assign shift successfully"
-									#redirect_to edit_dashboard_path(@dep)
-								else
-									render 'edit'
-								end
-							# update each data to Plan database		
-							elsif (@all_user_plan.time_in < new_time_out && @all_user_plan.time_in > new_time_in) || (@all_user_plan.time_out > new_time_in && @all_user_plan.time_out < new_time_out)
-								if @all_user_plan.update_attributes(time_plan) 
-									flash[:notice] = "Update shift successfully"
-									#redirect_to edit_dashboard_path(@dep)
-								else
-									render 'edit'
-								end
+							if @all_user_actual != nil && @all_user_actual.time_out != nil
+								flash[:notice] = "Can't update shift"
+
 							else
-								flash[:notice] = "Can't assign shift"
+								if (@all_user_plan.time_in == new_time_in)&&(@all_user_plan.time_out == new_time_out )
+									@all_user_plan.update(:OT => (params[:emp][:OT].to_f).ceil(1) )
+									flash[:notice] = "Update OT success"
+								else
+									flash[:notice] = "Can't assign shift"
+								end
 							end
-						# create data Plan if don't have anything in database
+								
+							
 						else
 							@assign = Plan.create(time_plan)
 							user = User.find(uID.to_i)
 							user.plans << @assign
 							if @assign.save
 								#if creation is successful, show up 'successful' message
-								flash[:notice] = "Assign shift successfully"
+								flash[:notice] = "Assign new shift successfully"
 								#redirect_to edit_dashboard_path(@dep)
 							else
 								render 'edit'
