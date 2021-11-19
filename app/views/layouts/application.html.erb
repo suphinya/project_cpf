@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Project</title>
+    <title>Assight Shift</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -12,7 +13,7 @@
   <img class="background" src="/assets/wave.png" width="500px">
   <div class="navbar">
         <div class="container">
-            
+
             <% if logged_in? && current_user.position == "employee" %>
               <%= link_to 'Assight<span>Shift</span>'.html_safe, schedule_path, :class => "logo" %>
             <% elsif logged_in? && current_user.position == "admin" %>
@@ -24,7 +25,7 @@
             <img id="mobile-cta" class="mobile-menu" src="/assets/menu.svg" alt="Open Navigation">
             <nav>
                 <img id="mobile-exit" class="mobile-menu-exit" src="/assets/exit.svg" alt="Close Navigation">
-                
+
                 <ul class="primary-nav">
                     <li class="current">
                       <% if logged_in? && current_user.position == "employee" %>
@@ -34,7 +35,7 @@
                       <% else %>
                         <%= link_to 'Home', root_path %>
                       <% end %>
-                        
+
                     </li>
                 </ul>
 
@@ -63,7 +64,7 @@
       </div>
     <% end %>
     <%= yield %>
-  
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
