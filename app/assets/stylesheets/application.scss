@@ -23,9 +23,15 @@
 }
 
 body {
+    color: #181A18;
     background: #F2F2F2;
     margin: 0;
     font-family: 'IBM Plex Sans Thai', sans-serif;
+}
+
+input, select, textarea {
+  font-size: 80%;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
 }
 
 .plan-btn-show {

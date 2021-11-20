@@ -1,58 +1,58 @@
 
 <body>
-<h1> schedule ตารางงาน <%= current_user.name %> </h1>
+<div class=title-container>
+<h1 class="title_employe"> schedule ตารางงาน <%= current_user.name %> </h1>
+<div class="btn-container">
+  <%= button_tag "Time in", :type => "save_in" , :name => "save_in" , class:"check-btn in"%>
+  <%= button_tag "Time out", :type => "save_out" , :name => "save_out" , class:"check-btn out" %>
+  <%= form_tag schedule_path , :method => :get do %>
+  <% end %>
+<h2 class="sub-title">Today's Plan</h2>
+</div>
 
-<div class="table-container">
-<%= form_tag schedule_path , :method => :get do %>
-  <%= button_tag "Time in", :type => "save_in" , :name => "save_in" %>
-  <%= button_tag "Time out", :type => "save_out" , :name => "save_out" %>
+</div>
+
+<div class="today-container">
+  <div class="today-item">
+
+<% if @plan_worker_today == true %>
+  <div class="title-card">
+  <h1> Department 1 </h1>
+  </div>
+  <h2><%= @plan_today.date.strftime("%Y-%m-%d") %></h2>
+  <% if @actual_worker_today == true %>
+
+    <% if @actual_today.time_in == nil %>
+      <h2><span class="row-title">in</span><%= '- / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></h2>
+    <% else %>
+      <h2><span class="row-title">in</span><%= (@actual_today.time_in).strftime("%H:%M") + ' / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></h2>
+    <% end %>
+
+    <% if @actual_today.time_out == nil %>
+      <h2><span class="row-title">out</span><%= '- / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></h2>
+    <% else %>
+      <h2><span class="row-title">out</span><%= (@actual_today.time_out).strftime("%H:%M") + ' / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></h2>
+    <% end %>
+
+    <% if @actual_today.OT == nil %>
+      <h2><span class="row-title">ot</span><%= '- / ' + @plan_today.OT.to_s %></h2>
+    <% else %>
+      <h2><span class="row-title">ot</span><%= (@actual_today.OT).to_s + ' / ' + @plan_today.OT.to_s %></h2>
+    <% end %>
+
+  <% else %>
+    <h2><span class="row-title">in</span><%= '- / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></h2>
+    <h2><span class="row-title">out</span><%= '- / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></h2>
+    <h2><span class="row-title">ot</span><%= '- / ' + @plan_today.OT.to_s %></h2>
+  <% end %>
+<% else %>
+  <h2 colspan="4"> You don't have any plans for today! </h2>
 <% end %>
+</div>
+</div>
+<div class="table-container">
 
-<h2>Today's Plan</h2>
-<table>
-  <thead>
-    <th> วันที่ </th>
-    <th> เวลาเข้างาน </th>
-    <th> เวลาออกงาน </th>
-    <th> OT </th>
-  </thead>
-  <tbody>
-    <tr>
-      <% if @plan_worker_today == true %>
-        <td><%= @plan_today.date.strftime("%Y-%m-%d") %></td>
-        <% if @actual_worker_today == true %>
 
-          <% if @actual_today.time_in == nil %>
-            <td><%= '- / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></td>
-          <% else %>
-            <td><%= (@actual_today.time_in).strftime("%H:%M") + ' / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></td>
-          <% end %>
-
-          <% if @actual_today.time_out == nil %>
-            <td><%= '- / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></td>
-          <% else %>
-            <td><%= (@actual_today.time_out).strftime("%H:%M") + ' / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></td>
-          <% end %>
-
-          <% if @actual_today.OT == nil %>
-            <td><%= '- / ' + @plan_today.OT.to_s %></td>
-          <% else %>
-            <td><%= (@actual_today.OT).to_s + ' / ' + @plan_today.OT.to_s %></td>
-          <% end %>
-
-        <% else %>
-          <td><%= '- / ' + (@plan_today.time_in + (3600*12)).strftime("%H:%M") %></td>
-          <td><%= '- / ' + (@plan_today.time_out + (3600*12)).strftime("%H:%M") %></td>
-          <td><%= '- / ' + @plan_today.OT.to_s %></td>
-        <% end %>
-      <% else %>
-        <td colspan="4"> You don't have any plans for today! </td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
-
-<hr>
 
 <h2>Monthly's Plan</h2>
 <%= form_tag(schedule_path, method: 'get') do %>

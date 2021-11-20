@@ -31,11 +31,15 @@ body {
 .item {
     display: inline;
     margin: auto;
+
 }
+
+
 
 .form-container{
   display: flex;
   align-items:center;
+  font-size: 1.2em;
 }
 
 .select-time-btn{
@@ -51,11 +55,11 @@ body {
     cursor: pointer;
     text-transform: uppercase;
     font-family: 'IBM Plex Sans Thai', sans-serif;
-  
+
     &:hover {
       background: #167d8d;
       color: white;
-    }   
+    }
 }
 
 .item-form{
@@ -105,4 +109,58 @@ body {
     .plan-btn-show {
         margin-left :auto;
     }
+}
+
+
+//@employee section
+
+.title-container{
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-container{
+  margin-left: 1.5em;
+}
+.sub-title{
+  margin-left: unset;
+  margin-top: .5em;
+}
+.today-container{
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  width: 93%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: .8em;
+}
+
+.today-item{
+  box-shadow: 5px 0 5px 0 #bbbbbb;
+  background-color: white;
+  border-radius: 1em;
+  display: grid;
+  grid-template-columns: auto;
+}
+
+.title-card{
+  background-color: #5d3998;
+  border-radius: 1em 1em 0 0 ;
+  color: white;
+}
+
+ .row-title{
+  border-radius: 100px;
+  background-color: #5d3998;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-right: .8em;
+    color: white;
+}
+
+
+@media screen and (max-width: 992px) {
+  .today-container{
+    grid-template-columns: auto;
+  }
 }
