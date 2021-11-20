@@ -3,18 +3,18 @@
 
     <%= form_tag(edit_dashboard_path(@dep), method: 'get') do %>
       <div class="pick-time">
-      
+
 
       <div class="section-select-container">
-        Date assign 
+        Date assign
 
         <% if @status == true %>
           <%= date_field("date_in","date_in" , :value => @date_in ,:min => @today) %>
         <% else %>
           <%= date_field("date_in","date_in" , :value => @today ,:min => @today) %>
         <% end %>
-        <%= submit_tag 'select' , :name => "choose" %>
-        to 
+        <%= submit_tag 'select' , :name => "choose", :id =>"submit-btn", :style => "display:none" %>
+        to
         <%= date_field("date_out","date_out", :value => @today,:min => @today) %>
 
       </div>
@@ -70,5 +70,4 @@
 </body>
 
 <%= javascript_pack_tag 'select_all', 'data-turbolinks-track':'reload' %>
-
-
+<%= javascript_pack_tag 'edit', 'data-turbolinks-track':'reload' %>

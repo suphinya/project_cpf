@@ -3,15 +3,20 @@
 		<img class="avatar" src="/assets/avatar.svg" >
 		<%= form_tag('/login', {:class => 'login_form'}) do %>
 			<h2>Welcome</h2>
-			<div class="input-div one focus">
-			<h5 class="attr">Username</h5>
+			<div class="input-div one">
+			<h5 class="attr">  <i class="fa fa-user" aria-hidden="true" style="font-size:1.5em"></i> Username</h5>
+			<div class="card_input">
 			<%= text_field_tag :username, "", :class => "input-login" %><br>
 			</div>
-			<div class="input-div two focus">
-			<h5 class="attr">Password</h5>
-			<%= password_field_tag :password ,"", :class => "input-login" %><br>
+			</div>
+			<div class="input-div two">
+			<h5 class="attr">  <i class="fa fa-pencil" aria-hidden="true" style="font-size:1.5em"></i> Password</h5>
+			<div class="card_input">
+				<%= password_field_tag :password ,"", :class => "input-login" %><br>
+			</div>
 			</div>
 			<%= submit_tag "LOGIN", :class => "login-btn" %>
 		<% end %>
 	</div>
 </div>
+<%= javascript_pack_tag 'login', 'data-turbolinks-track': 'reload' %>

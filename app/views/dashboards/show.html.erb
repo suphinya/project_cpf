@@ -19,13 +19,13 @@
 			<div class="item-form">
 				วันที่ทำงาน :
 				<% if @status == true %>
-						<%= date_field("date_work", "date_work" , :value => @calender ) %>
+						<%= date_field("date_work", "date_work" , :value => @calender, :onchange=>"this.form.submit()" ) %>
 					<% else %>
-						<%= date_field("date_work", "date_work" , :value => day ) %>
+						<%= date_field("date_work", "date_work" , :value => day, :onchange=>"this.form.submit()") %>
 				<% end %>
 			</div>
 			<div class="item-form">
-				<%= submit_tag 'select' , :name => "choose" , :class=>"select-time-btn" %>
+				<%= submit_tag 'select' , :name => "choose" , :class=>"select-time-btn", style:"display:none;" %>
 			</div>
 		</div>
 		<% end %>
@@ -150,7 +150,7 @@
 </table>
 </div>
 
-<script type="text/javascript">         
+<script type="text/javascript">
       setTimeout("location.reload();",600000);
 </script>
-
+<%= javascript_pack_tag 'show', 'data-turbolinks-track': 'reload' %>

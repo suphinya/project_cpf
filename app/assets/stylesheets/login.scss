@@ -44,7 +44,7 @@ body {
     border: 1px solid gray;
     box-sizing: border-box;
   }
-  
+
 .input-login   select {
     padding: .8em;
     margin-bottom: 1em;
@@ -56,7 +56,7 @@ body {
     -webkit-appearance:none; /* Safari and Chrome */
     appearance:none;
   }
-  
+
 
 
 .login {
@@ -71,7 +71,10 @@ body {
     border-radius: 10px;
     box-shadow: 5px 0 5px 0 #bbbbbb;
 }
-
+.card_input{
+  display: grid;
+  grid-template-columns: 100%;
+}
 .avatar {
     margin-top: 25px;
     width: 100px;
@@ -97,7 +100,7 @@ body {
     }
     h5{
         position: absolute;
-        transform: translate(10%,-75%);
+        transform: translate(20%,-55%);
         font-size: 18px;
         transition: .3s;
         font-weight: bold;
@@ -106,8 +109,8 @@ body {
 }
 
 .input-div.one{
-
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .input-div.two{
@@ -115,29 +118,30 @@ body {
 }
 
 #username {
-    background-color: #dddddd;
-    border-radius: 100px;
-    border-color: #dddddd;
-    border: none;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 12px;
-    &:focus {
-        background: #bbbbbb;
-    }
+  background:none;
+  border-radius: 100px;
+  border: .2em solid black;
+  border-color: #dddddd;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 18px;
+  padding: 12px;
+  transition: .3s;
+  &:focus {
+      border-color: #63C898;
+  }
 }
 
 #password {
-    background-color: #dddddd;
+    background:none;
     border-radius: 100px;
+    border: .2em solid black;
     border-color: #dddddd;
-    border: none;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-size: 18px;
     padding: 12px;
+    transition: .3s;
     &:focus {
-        background: #bbbbbb;
+        border-color: #63C898;
     }
 
 }
@@ -150,7 +154,8 @@ input:focus{
     position: absolute;
     transform: translate(10%,-200%);
     font-size: 18px;
-    transition: .3s;
+    transition: .2s;
+    color: #63C898;
 
 
 }
@@ -184,7 +189,7 @@ input:focus{
         text-transform: uppercase;
         font-family: 'IBM Plex Sans Thai', sans-serif;
         margin-bottom: .1em;
-    
+
     }
 
     #username {
