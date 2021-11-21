@@ -45,63 +45,67 @@ class DashboardsController < ApplicationController
 			@date_out = params[:date_out].values[0]
 			
 			@status = true
-			if @date_out.to_time >= @date_in.to_time
-				# list of user id (tick checkbox)
-				@uID_list = params[:select_user]
+			if @date_in.to_time >= @today.to_time
+				if @date_out.to_time >= @date_in.to_time
+					# list of user id (tick checkbox)
+					@uID_list = params[:select_user]
 
-				time1 = @date_in.to_time
-				time2 = @date_out.to_time
+					time1 = @date_in.to_time
+					time2 = @date_out.to_time
 
-				dectime = (time2-time1) /(24*3600)
-				
+					dectime = (time2-time1) /(24*3600)
+					
 
-				for i in 0..dectime do 
-					time_loop = ((@date_in.to_time) + (i*(24*3600)))
-					date_loop = time_loop.strftime("%Y-%m-%d")
-					new_time_out = (date_loop +' '+(params[:time].split[2])).to_time
-					new_time_in = (date_loop +' '+(params[:time].split[0])).to_time
-					tomorrow = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00","08:30"]
-					if tomorrow.include?(params[:time].split[2])
-						new_time_out += (3600*24)
-					end
-					if @uID_list
-						@uID_list.each do |uID|
-							@all_user_plan = Plan.find_by(:user_id => uID , :date => date_loop) # get database
-							@all_user_actual = Actual.find_by(:user_id => uID , :date => date_loop)
-							if @all_user_plan != nil
-								if @all_user_actual != nil && @all_user_actual.time_out != nil
-									flash[:notice] = "Can't update shift"
+					for i in 0..dectime do 
+						time_loop = ((@date_in.to_time) + (i*(24*3600)))
+						date_loop = time_loop.strftime("%Y-%m-%d")
+						new_time_out = (date_loop +' '+(params[:time].split[2])).to_time
+						new_time_in = (date_loop +' '+(params[:time].split[0])).to_time
+						tomorrow = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00","08:30"]
+						if tomorrow.include?(params[:time].split[2])
+							new_time_out += (3600*24)
+						end
+						if @uID_list
+							@uID_list.each do |uID|
+								@all_user_plan = Plan.find_by(:user_id => uID , :date => date_loop) # get database
+								@all_user_actual = Actual.find_by(:user_id => uID , :date => date_loop)
+								if @all_user_plan != nil
+									if @all_user_actual != nil && @all_user_actual.time_out != nil
+										flash[:notice] = "Can't update shift"
 
-								else
-									if (@all_user_plan.time_in == new_time_in)&&(@all_user_plan.time_out == new_time_out )
-										@all_user_plan.update(:OT => (params[:emp][:OT].to_f).ceil(1) )
-										flash[:notice] = "Update OT success"
 									else
-										flash[:notice] = "Can't assign shift"
+										if (@all_user_plan.time_in == new_time_in)&&(@all_user_plan.time_out == new_time_out )
+											@all_user_plan.update(:OT => (params[:emp][:OT].to_f).ceil(1) )
+											flash[:notice] = "Update OT success"
+										else
+											flash[:notice] = "Can't assign shift"
+										end
+									end
+										
+									
+								else
+									@assign = Plan.create(time_plan(date_loop))
+									user = User.find(uID.to_i)
+									user.plans << @assign
+									if @assign.save
+										#if creation is successful, show up 'successful' message
+										flash[:notice] = "Assign new shift successfully"
+										#redirect_to edit_dashboard_path(@dep)
+									else
+										render 'edit'
 									end
 								end
-									
-								
-							else
-								@assign = Plan.create(time_plan(date_loop))
-								user = User.find(uID.to_i)
-								user.plans << @assign
-								if @assign.save
-									#if creation is successful, show up 'successful' message
-									flash[:notice] = "Assign new shift successfully"
-									#redirect_to edit_dashboard_path(@dep)
-								else
-									render 'edit'
-								end
 							end
+							
 						end
-						
+					
 					end
-				
+				else
+					flash[:notice] = "Date should be sort"
+					redirect_to edit_dashboard_path(@dep)
 				end
 			else
-				flash[:notice] = "Date should be sort"
-				redirect_to edit_dashboard_path(@dep)
+				flash[:notice] = "You cannot assign plan in the pass!"
 			end
 		end
 

@@ -9,9 +9,9 @@
         Date assign
 
         <% if @status == true %>
-          <%= date_field("date_in","date_in" , :value => @date_in ,:min => @today) %>
+          <%= date_field("date_in","date_in" , :value => @date_in) %>
         <% else %>
-          <%= date_field("date_in","date_in" , :value => @today ,:min => @today) %>
+          <%= date_field("date_in","date_in" , :value => @today) %>
         <% end %>
         <%= submit_tag 'select' , :name => "choose", :id =>"submit-btn", :style => "display:none" %>
         to
