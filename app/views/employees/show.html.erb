@@ -3,9 +3,9 @@
 <div class=title-container>
 <h1 class="title_employe"> schedule ตารางงาน <%= current_user.name %> </h1>
 <div class="btn-container">
-  <%= button_tag "Time in", :type => "save_in" , :name => "save_in" , class:"check-btn in"%>
-  <%= button_tag "Time out", :type => "save_out" , :name => "save_out" , class:"check-btn out" %>
   <%= form_tag schedule_path , :method => :get do %>
+    <%= button_tag "Time in", :type => "save_in" , :name => "save_in" , class:"check-btn in"%>
+    <%= button_tag "Time out", :type => "save_out" , :name => "save_out" , class:"check-btn out" %>
   <% end %>
 <h2 class="sub-title">Today's Plan</h2>
 </div>
