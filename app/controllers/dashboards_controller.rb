@@ -51,6 +51,7 @@ class DashboardsController < ApplicationController
 			@date_out = params[:date_out].values[0]
 			
 			@status = true
+			@table_date = @date_in
 			if @date_in.to_time >= @today.to_time
 				if @date_out.to_time >= @date_in.to_time
 					# list of user id (tick checkbox)
