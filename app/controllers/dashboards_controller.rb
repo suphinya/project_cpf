@@ -32,11 +32,17 @@ class DashboardsController < ApplicationController
 		@dep = params[:id]
 		@users = User.where(:department1 => @dep)
 		@employee = @users.select{|user| user.position=="employee"}
-		
+
+		# เช็คอัพเดตแพลน
+		@time_now = (Time.current+3600).strftime('%H:%M')
+
+		@table_date = @today
+
 		@status = false
 		if (params.key?('choose'))
 			@status = true
 			@date_in = params[:date_in].values[0]
+			@table_date = @date_in
 		end
 		# click to assign shift
 		if (params.key?('ass_button'))
@@ -70,10 +76,12 @@ class DashboardsController < ApplicationController
 								@all_user_plan = Plan.find_by(:user_id => uID , :date => date_loop) # get database
 								@all_user_actual = Actual.find_by(:user_id => uID , :date => date_loop)
 								if @all_user_plan != nil
+									#กรณีเข้างาน-ออกงานแล้ว
 									if @all_user_actual != nil && @all_user_actual.time_out != nil
 										flash[:notice] = "Can't update shift"
 
 									else
+										# กรณีเข้างานแล้วแต่ยังไม่ได้ออกงานและเวลาแพลนเดิม สามารถอัพเดตโอทีได้
 										if (@all_user_plan.time_in == new_time_in)&&(@all_user_plan.time_out == new_time_out )
 											@all_user_plan.update(:OT => (params[:emp][:OT].to_f).ceil(1) )
 											flash[:notice] = "Update OT success"
@@ -81,9 +89,21 @@ class DashboardsController < ApplicationController
 											flash[:notice] = "Can't assign shift"
 										end
 									end
+
+									# กรณีอัพเดตแพลนเมื่อเวลาปัจจุบันยังไม่ถึงแพลนที่จะกำหนดให้ (วันที่ปัจจุบัน)
+									if (@all_user_actual == nil) && ( (new_time_in.strftime('%H:%M')).to_time >= @time_now.to_time )
+										@all_user_plan.update(time_plan(date_loop))
+										flash[:notice] = "Update Plan success"
+
+									# กรณีอัพเดตแพลนเมื่อเวลาปัจจุบันยังไม่ถึงแพลนที่จะกำหนดให้ (ล่วงหน้า)
+									elsif (@all_user_actual == nil) && ((new_time_in.strftime("%Y-%m-%d")).to_time > @today.to_time)
+										@all_user_plan.update(time_plan(date_loop))
+										flash[:notice] = "Update Plan success"
+									end
 										
 									
 								else
+									#กรณีไม่มีแพลนสามารถสร้างแพลนได้
 									@assign = Plan.create(time_plan(date_loop))
 									user = User.find(uID.to_i)
 									user.plans << @assign
@@ -145,7 +165,7 @@ class DashboardsController < ApplicationController
 							plan.destroy
 							flash[:notice] = "Delete plan success"
 						else
-							flash[:notice] = "Error! Please check you plan & actual"
+							flash[:notice] = "Warning! Please check you plan & actual"
 						end
 					end
 				end

@@ -1,7 +1,8 @@
 
 
 <% @all_depart.each do |department|%>
-
+    <% minus_ot = 0 %>
+    
     <% num_now = 0 %>
     <% num_plan = 0 %>
     <% day = Time.current.strftime("%Y-%m-%d") %>
@@ -9,6 +10,7 @@
 
     <% all_worker.each do |worker| %>
 
+        <%# จำนวนคนเข้างาน เทียบกับ แพลนที่ให้ทั้งวัน %>
         <% all_plan = worker.plans.find_by_date(day) %>
             <% if all_plan != nil %>
                 <% num_plan += 1 %>
@@ -18,6 +20,16 @@
             <% if all_actual != nil && all_actual.time_in != nil && all_actual.time_out == nil %>
                 <% num_now += 1 %>
             <% end %>
+
+
+            <%# เช็คโอทีติดลบ %>
+            <% if (all_actual != nil) && (all_actual.OT != nil) %>
+                <% if all_actual.OT < 0  %>
+                    <% minus_ot += 1 %>
+                <% end %>
+            <% end %>
+
+
     <% end %>
 
     <% if num_now != 0 && num_plan !=0 %>
@@ -27,9 +39,13 @@
     <% end %>
 
 
+
     <div class="item-container">
         <div class="title-department">
             <%= link_to department ,  dashboard_path(department), :class => "title-department-tag"  %>
+            <% if minus_ot > 0 %>
+                <div class="title-department-tag" id="ot"><%= "!"%></div>
+            <% end %>
         </div>
         <div class="percent-container">
         <p> <%=  num_now.to_s + ' / ' + num_plan.to_s %> </p>
