@@ -164,3 +164,15 @@ body {
     grid-template-columns: auto;
   }
 }
+
+.color-sign {
+    display: inline-block;
+}
+
+#check_on_time {
+    color: green;
+}
+
+#check_late_time {
+    color: red;
+}

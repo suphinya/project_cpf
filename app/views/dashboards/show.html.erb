@@ -123,9 +123,15 @@
 
 						<% if (worker_all_actuals.time_in.strftime('%H:%M').to_time) <= ((worker_all_plan.time_in + (3600*12) + 300).strftime('%H:%M').to_time)%>
 							
-							<td><%= "hello" +  worker_all_actuals.time_in.strftime('%H:%M') + '/' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+							<td>
+								<div class="color-sign" id="check_on_time"><%= worker_all_actuals.time_in.strftime('%H:%M') %></div>
+								<div class="color-sign"><%= ' / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %></div>
+							</td>
 						<% else %>
-							<td><%= "late" +  worker_all_actuals.time_in.strftime('%H:%M') + '/' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %></td>
+							<td>
+								<div class="color-sign" id="check_late_time"><%= worker_all_actuals.time_in.strftime('%H:%M') %></div>
+								<div class="color-sign"><%= ' / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %></div>
+							</td>
 						<% end %>
 					<% else %>
 						<td> <%= '- / ' + (worker_all_plan.time_in + (3600*12)).strftime('%H:%M') %> </td>
@@ -135,11 +141,17 @@
 					<%# time out %>
 					<% if worker_all_actuals.time_out != nil %>
 
-						<% if (worker_all_actuals.time_out.strftime('%H:%M').to_time) <= ((worker_all_plan.time_out + (3600*12) + 300).strftime('%H:%M').to_time)%>
+						<% if (worker_all_actuals.time_out.strftime('%H:%M').to_time) <= ((worker_all_plan.time_out + (3600*12) - 300).strftime('%H:%M').to_time)%>
 							
-							<td><%= "late" +  worker_all_actuals.time_out.strftime('%H:%M') + '/' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M') %></td>
+							<td>
+								<div class="color-sign" id="check_late_time"><%= worker_all_actuals.time_out.strftime('%H:%M') %></div>
+								<div class="color-sign"><%= ' / ' + (worker_all_plan.time_out + (3600*12)).strftime('%H:%M') %></div>
+							</td>
 						<% else %>
-							<td><%= "hello" +  worker_all_actuals.time_out.strftime('%H:%M') + '/' + (worker_all_plan.time_out + (3600*12)).strftime('%H:%M') %></td>
+							<td>
+								<div class="color-sign" id="check_on_time"><%= worker_all_actuals.time_out.strftime('%H:%M') %></div>
+								<div class="color-sign"><%= ' / ' + (worker_all_plan.time_out + (3600*12)).strftime('%H:%M') %></div>
+							</td>
 						<% end %>
 					<% else %>
 						<td> <%= '- / ' + (worker_all_plan.time_out+(3600*12)).strftime('%H:%M') %></td>
@@ -151,9 +163,15 @@
 						
 						<% if worker_all_actuals.OT < 0 %>
 							
-							<td><%= "late" + worker_all_actuals.OT.to_s + '/' + worker_all_plan.OT.to_s %></td>
+							<td>
+								<div class="color-sign" id="check_late_time"><%= worker_all_actuals.OT.to_s %></div>
+								<div class="color-sign"><%= ' / ' + worker_all_plan.OT.to_s %></div>
+							</td>
 						<% else %>
-							<td><%= "hello" +  worker_all_actuals.OT.to_s + '/' + worker_all_plan.OT.to_s %></td>
+							<td>
+								<div class="color-sign" id="check_on_time"><%= worker_all_actuals.OT.to_s %></div>
+								<div class="color-sign"><%= ' / ' + worker_all_plan.OT.to_s %></div>
+							</td>
 						<% end %>
 
 					<% else %>
