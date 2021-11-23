@@ -2,14 +2,17 @@
 <body>
 <div class=title-container>
 <h1 class="title_employe"> schedule ตารางงาน <%= current_user.name %> </h1>
-<div class="btn-container">
+<div class="t">
+  
+
+</div>
+</div>
+<div class="table-container today" > 
+  <h3 class="sub-title">Today's Plan</h3>
   <%= form_tag schedule_path , :method => :get do %>
     <%= button_tag "Time in", :type => "save_in" , :name => "save_in" , class:"check-btn in"%>
     <%= button_tag "Time out", :type => "save_out" , :name => "save_out" , class:"check-btn out" %>
   <% end %>
-<h2 class="sub-title">Today's Plan</h2>
-</div>
-
 </div>
 
 <div class="today-container">
@@ -46,15 +49,16 @@
     <h2><span class="row-title">ot</span><%= '- / ' + @plan_today.OT.to_s %></h2>
   <% end %>
 <% else %>
-  <h2 colspan="4"> You don't have any plans for today! </h2>
+  <h5 colspan="4"> You don't have any plans for today! </h5>
 <% end %>
 </div>
 </div>
+
+<div class="table-container monthly">
+  <h3>Monthly's Plan</h3>
+</div>
+
 <div class="table-container">
-
-
-
-<h2>Monthly's Plan</h2>
 <%= form_tag(schedule_path, method: 'get') do %>
   Filter Month : <%= select_tag :monthly, options_for_select(@select_month, @select_month_default) %>
   <%= submit_tag "Choose" , :name=>'month_choose' %>

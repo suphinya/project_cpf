@@ -43,22 +43,23 @@
     <div class="item-container">
         <div class="title-department">
             <%= link_to department ,  dashboard_path(department), :class => "title-department-tag"  %>
-            <% if minus_ot > 0 %>
-                <div class="title-department-tag" id="ot"><%= "!"%></div>
-            <% end %>
+            
         </div>
         <div class="percent-container">
-        <p> <%=  num_now.to_s + ' / ' + num_plan.to_s %> </p>
+        <p> <%=  num_now.to_s + ' / ' + num_plan.to_s %><% if minus_ot > 0 %>
+            <i class="fa fa-hourglass-3 alert-ot" aria-hidden="true" style="font-size:1.3em" class="alert-ot"></i>
+            <% end %> </p>
+            
         <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: <%= percent%>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         </div>
         <div class="actual-btn">
-            <%= link_to ('<i class="fa fa-clock-o" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  dashboard_path(department)  %>
+            <%= link_to ('<i class="fa fa-clock-o linked" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  dashboard_path(department)  %>
            
         </div>
         <div class="plan-btn">
-            <%= link_to ('<i class="fa fa-pencil" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  edit_dashboard_path(department)  %>
+            <%= link_to ('<i class="fa fa-pencil linked" aria-hidden="true" style="font-size:1.5em"></i>').html_safe,  edit_dashboard_path(department)  %>
         </div>
     </div>
 

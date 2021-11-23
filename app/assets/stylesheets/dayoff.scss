@@ -1,0 +1,61 @@
+@import 'font-awesome';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;500&display=swap');
+
+
+.dayoff-btn{
+  float: right;
+  border-radius: 25px;
+  background-color: #b19cd9; /* Green */
+  border: 2px solid #b19cd9;
+  color: white ;
+  padding: .1em .5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  &:hover{
+    background-color: #8f74c2;
+  }
+}
+
+.head-container{
+  margin-left: 1.5em;
+}
+.dayoff-controller {
+  margin-left: auto;
+  margin-right: auto;
+  width: 91%;
+  background-color: white;
+  border-left: 0.25rem solid #b19cd9!important;
+  box-shadow: 5px 0 5px 0 #bbbbbb;
+  padding: 1.2em;
+  padding-bottom: 1.5em;
+
+  
+}
+
+
+@media screen and (max-width: 992px) {
+  .dayoff-controller {
+
+    width: 89%;
+  }
+  .head-container{
+    margin-left: 0;
+  } 
+  
+  
+ 
+}
+
+@media screen and (min-width: 992px) {
+
+  
+  .dayoff-btn{
+    margin-right: 3em;
+    &:hover{
+      background-color: #8f74c2;
+    }
+  }
+}

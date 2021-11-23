@@ -129,7 +129,7 @@ body {
 .today-container{
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  width: 93%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   font-size: .8em;
@@ -158,6 +158,41 @@ body {
     color: white;
 }
 
+.t{
+  
+
+}
+h5{
+  text-align: center;
+}
+.table-container.today{
+  border-left: 0.25rem solid #5d3998!important;
+  border-radius: 1px;
+  margin-bottom: 1em;
+  width: 90%;
+  button{
+    border-radius: 25px;
+    background-color: #b19cd9; /* Green */
+    border: 2px solid #b19cd9;
+    color: white ;
+    padding: .1em .5em;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    &:hover{
+      background-color: white;
+      color: #b19cd9;
+    }
+  }
+}
+
+.table-container.monthly{
+  border-left: 0.25rem solid #a56a4f!important;
+  border-radius: 1px;
+  margin-bottom: 0;
+  width: 90%;
+}
 
 @media screen and (max-width: 992px) {
   .today-container{

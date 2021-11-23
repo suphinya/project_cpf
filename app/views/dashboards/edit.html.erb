@@ -24,16 +24,18 @@
 
 
       <div class="time-plan-container">
-
-        Time <%= select_tag :time, options_for_select(@all_time, @default_select)  %>
-        OT <%= text_field :emp, :OT %>
+        <label>Time</label>
+        <%= select_tag :time, options_for_select(@all_time, @default_select)  %>
+        <label>OT</label>
+        <%= text_field :emp, :OT %>
         <%= submit_tag "Submit" , :name=>'ass_button' , :class => "summit-plan"%>
+        <%= submit_tag "Delete" , :name=>'delete', class:'delete-btn'%>
 
       </div>
       <div class="delete-section">
-        <%= submit_tag "Delete" , :name=>'delete' %>
-        <%= link_to 'Day off', dayoff_path(@dep) %>
-        <%= link_to 'Actual', dashboard_path(@dep)%><br>
+        
+        <%= link_to 'Day off', dayoff_path(@dep), :class=>"day-btn" %>
+        <%= link_to 'Actual', dashboard_path(@dep), :class=>"actual-btn"%><br>
 
       </div>
       </div>

@@ -5,7 +5,7 @@ h1 {
     font-weight: bold;
     text-transform: uppercase;
     margin-left: 25px;
-    margin-bottom: 0;
+    margin-bottom: .1em;
 }
 
 
@@ -29,12 +29,18 @@ h2 {
     color: red;
 }
 
-.fa{
+.fa.linked{
+  margin-top: .3em;
   font-size: unset;
   font-size: 5em;
+  transition-duration: 0.2s;
   &:hover{
-    color: #4e73df;
+    color: #6e4edf;
   }
+}
+
+.fa.alert-ot{
+  color: rgb(240, 63, 78);
 }
 
 
@@ -95,7 +101,7 @@ h2 {
         grid-row : 2;
         background-color: white;
     }
-
+    
     &:hover {
       box-shadow: 5px 0 5px 0 #bbbbbb;
     }

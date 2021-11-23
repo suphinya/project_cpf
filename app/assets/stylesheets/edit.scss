@@ -29,12 +29,29 @@
 .time-plan-container {
     background-color: white;
     display: grid;
-    grid-template-columns: 10% 40% 5% 10% 30%;
-    gap: 10px;
+    font-size: .9em;
+    grid-template-columns: 10% 30% 5% 10% 20% 20%;
+    gap: .3em;
     border-left: 0.25rem solid #ffdd48!important;
     box-shadow: 5px 0 5px 0 #bbbbbb;
     padding: 1.2em;
     padding-bottom: 1.5em;
+    
+}
+
+.delete-btn{
+  background-color:  #F47174;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  border: none;
+  border-radius: 1em;
+  cursor: pointer;
+  padding-bottom: .4em;
+  padding-top: .4em;
+  width: 100%;
+
+  
 }
 
 .section-select-btn {
@@ -42,7 +59,7 @@
     text-align: center;
     color: white;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1em;
     border: none;
     border-radius: 1em;
     cursor: pointer;
@@ -51,7 +68,7 @@
 
 }
 .summit-plan{
-    width: 90%;
+    width: 100%;
     background-color: #f3ca12;
     text-align: center;
     color: white;
@@ -60,13 +77,51 @@
     border: none;
     border-radius: 1em;
     cursor: pointer;
+    transition-duration: 0.2s;
+    &:hover {
+      background-color:  #d6af00;
+    }
 }
 
 .to-container{
   display:grid;
   grid-template-columns: 100%;
 }
+.page-container{
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 
+  input[type="submit"]{
+        text-decoration: none;
+        background-color:  #F47174;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1em;
+        border: none;
+        border-radius: 1em;
+        width: 20%;
+        cursor: pointer;
+        padding-bottom: .4em;
+        padding-top: .4em;
+        transition-duration: 0.2s;
+        
+        &:hover {
+          background-color:  #2198aa;
+        }
+  }
+
+  a{
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+ 
+}
 
 .delete-section{
   background-color: white;
@@ -74,10 +129,11 @@
   margin-bottom: 1em;
   border-bottom: .1rem solid #bbbbbb ;
   box-shadow: 5px 0 5px 0 #bbbbbb;
-  border-left: 0.25rem solid  #F47174!important;
+  border-left: 0.25rem solid  #b19cd9!important;
   padding: 1em;
 
-  input[type="submit"]{
+  input[type="submit"], a{
+        text-decoration: none;
         background-color:  #F47174;
         text-align: center;
         color: white;
@@ -91,6 +147,40 @@
         cursor: pointer;
         padding-bottom: .4em;
         padding-top: .4em;
+        transition-duration: 0.2s;
+        &:hover {
+          background-color:  #2198aa;
+        }
+
+  }
+
+  a{
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .day-btn{
+    background: #b19cd9;
+  }
+
+  .actual-btn {
+    background: #36b9cc;
+  }
+
+  .day-btn{
+    transition-duration: 0.2s;
+    background: #b19cd9;
+    &:hover {
+      background-color:  #7c5eb3;
+    }
+  }
+  
+  .actual-btn {
+    transition-duration: 0.2s;
+    background: #36b9cc;
+    &:hover {
+      background-color:  #2198aa;
+    }
   }
 }
 
@@ -104,7 +194,7 @@
     }
 
     .time-plan-container{
-        height: 20%;
+      margin-bottom: 1em;;
     }
 
 

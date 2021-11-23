@@ -1,7 +1,9 @@
+<div class="head-container"> 
 <h1> <%= "วันหยุดของแผนก : " +  @department %> </h1>
-
+</div>
+<div class="dayoff-controller">
 <%= link_to 'Plan', edit_dashboard_path(@department), :class =>"plan-btn-show" %><br>
-
+</div> 
 <%= form_tag(dayoff_path(@department)) do %>
 
 	<div class="table-container">
@@ -24,7 +26,7 @@
 
 	  </table>
 	</div>
-	<p><%= submit_tag "submit day off" , :name=>'restday'  %></p>
+	<p><%= submit_tag "submit day off" , :name=>'restday', :class => "dayoff-btn"%></p>
 <% end %>
 
 <%= javascript_pack_tag 'select_all', 'data-turbolinks-track':'reload' %>
