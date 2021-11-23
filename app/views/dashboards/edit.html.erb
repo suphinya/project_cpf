@@ -32,6 +32,9 @@
       </div>
       <div class="delete-section">
         <%= submit_tag "Delete" , :name=>'delete' %>
+        <%= link_to 'Day off', dayoff_path(@dep) %>
+        <%= link_to 'Actual', dashboard_path(@dep)%><br>
+
       </div>
       </div>
 

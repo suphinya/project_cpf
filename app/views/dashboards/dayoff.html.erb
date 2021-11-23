@@ -1,0 +1,31 @@
+<h1> <%= "วันหยุดของแผนก : " +  @department %> </h1>
+
+<%= link_to 'Plan', edit_dashboard_path(@department), :class =>"plan-btn-show" %><br>
+
+<%= form_tag(dayoff_path(@department)) do %>
+
+	<div class="table-container">
+	  <table>
+
+	    <tr>
+	      <th><%= check_box_tag :check_all %></th>
+	      <th>ชื่อ-นามสกุล</th>
+	      <th>วันหยุด</th>
+	    </tr>
+
+	    <% @employee.each do |users| %>
+
+	    <tr>
+	      <td><%= check_box_tag "select_user[]", users.id %></td>
+	      <td><%= users.name.to_s+" "+users.surname.to_s %></td>
+	      <td><%= date_field("date_select"+"_"+(users.id.to_s),"date_select"+"_"+(users.id.to_s), :value => @today) %></td>
+	    </tr>
+	    <% end %>
+
+	  </table>
+	</div>
+	<p><%= submit_tag "submit day off" , :name=>'restday'  %></p>
+<% end %>
+
+<%= javascript_pack_tag 'select_all', 'data-turbolinks-track':'reload' %>
+<%= javascript_pack_tag 'edit', 'data-turbolinks-track':'reload' %>

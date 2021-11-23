@@ -105,15 +105,30 @@ class DashboardsController < ApplicationController
 									
 								else
 									#กรณีไม่มีแพลนสามารถสร้างแพลนได้
-									@assign = Plan.create(time_plan(date_loop))
-									user = User.find(uID.to_i)
-									user.plans << @assign
-									if @assign.save
-										#if creation is successful, show up 'successful' message
-										flash[:notice] = "Assign new shift successfully"
-										#redirect_to edit_dashboard_path(@dep)
+									if (new_time_in.strftime('%H:%M')).to_time >= @time_now.to_time
+										@assign = Plan.create(time_plan(date_loop))
+										user = User.find(uID.to_i)
+										user.plans << @assign
+										if @assign.save
+											#if creation is successful, show up 'successful' message
+											flash[:notice] = "Assign new shift successfully"
+											#redirect_to edit_dashboard_path(@dep)
+										else
+											render 'edit'
+										end
+									elsif (new_time_in.strftime("%Y-%m-%d")).to_time > @today.to_time
+										@assign = Plan.create(time_plan(date_loop))
+										user = User.find(uID.to_i)
+										user.plans << @assign
+										if @assign.save
+											#if creation is successful, show up 'successful' message
+											flash[:notice] = "Assign new shift successfully"
+											#redirect_to edit_dashboard_path(@dep)
+										else
+											render 'edit'
+										end
 									else
-										render 'edit'
+										flash[:notice] = "Please check date and time"
 									end
 								end
 							end
@@ -217,6 +232,38 @@ class DashboardsController < ApplicationController
     
     	end
 		return list_department
+	end
+
+
+	def dayoff
+		@department = params[:id]
+		@today = Time.current.strftime("%Y-%m-%d")
+		@users = User.where(:department1 => @department)
+		@employee = @users.select{|user| user.position=="employee"}
+
+		if (params.key?("restday"))
+			@user_id_list = params[:select_user]
+			if @user_id_list
+				@user_id_list.each do |uID|
+					parameter = ("date_select_"+uID.to_s).to_sym
+					@user_date_off = params[parameter].values[0]
+
+
+					user_plan = Plan.find_by(:date => @user_date_off.to_time , :user_id => uID)
+					user_actual = Actual.find_by(:date => @user_date_off.to_time , :user_id => uID)
+
+					if user_actual == nil
+						if user_plan != nil
+							user_plan.destroy
+							flash[:notice] = "Day off success"
+						end
+					else
+						flash[:notice] = " Can't give day off for this day "
+					end
+
+				end
+			end
+		end
 	end
 
 end
