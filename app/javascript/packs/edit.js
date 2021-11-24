@@ -19,7 +19,7 @@ var date = document.getElementById("date_in_date_in").value;
 var varDate = new Date(date); //dd-mm-YYYY
 var today = new Date();
 
-if(varDate > today.getDate()) {
+if(varDate >= today) {
   document.getElementById("date_out_date_out").value = document.getElementById("date_in_date_in").value;
   document.getElementById("to-div").style.display = "grid";
 }

@@ -17,7 +17,7 @@
             <% end %>
 
         <% all_actual = worker.actuals.find_by_date(day) %>
-            <% if all_actual != nil && all_actual.time_in != nil && all_actual.time_out == nil %>
+            <% if all_actual != nil && all_actual.time_in != nil %>
                 <% num_now += 1 %>
             <% end %>
 
